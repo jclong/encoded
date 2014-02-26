@@ -23,11 +23,11 @@ DEFAULT_COLLECTIONS = [
     'biosample',
     'experiment',
     'dataset',
-    'antibody_approval',
     'antibody_characterization',
     'biosample_characterization',
     'rnai_characterization',
     'construct_characterization',
+    'antibody_approval',
     'document',
 ]
 
