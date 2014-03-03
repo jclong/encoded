@@ -63,6 +63,6 @@
             "comment": "See characterization_document.json for available identifiers.",
             "type": "string",
             "linkTo": "characterization_document"
-        },
+        }
     }
 }
