@@ -47,3 +47,4 @@ def characterization_0_3(value, system):
 @upgrade_step('construct_characterization', '3', '4')
 def characterization_3_4(value, system):
     # http://redmine.encodedcc.org/issues/380
+    pass
