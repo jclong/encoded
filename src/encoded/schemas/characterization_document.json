@@ -24,6 +24,58 @@
             "title": "Description",
             "description": "A plain text description of the document.",
             "type": "string"
+        },
+        "characterization_method": {
+            "title": "Method",
+            "description": "Experimental method of the characterization.",
+            "type": "string",
+            "enum": [
+                "immunoblot",
+                "immunoprecipitation",
+                "immunofluorescence",
+                "knockdown or knockout",
+                "immunoprecipitation followed by mass spectrometry",
+                "ChIP-seq comparison",
+                "motif enrichment",
+                "dot blot assay",
+                "peptide array assay",
+                "peptide ELISA assay",
+                "peptide competition assay",
+                "mutant organism",
+                "mutant histone modifier",
+                "mutant histone",
+                "annotation enrichment",
+                "FACs analysis",
+                "qPCR analysis"
+            ]
+        },
+        "caption": {
+            "title": "Caption",
+            "description": "A plain text description about the characterization. Characterizations for antibodies should include brief methods, expected MW, cell line(s), labels and justification for acceptance, if necessary",
+            "type": "string",
+            "default": ""
+        },
+        "date": {
+            "title": "Date",
+            "description": "The date that the characterization was run on.",
+            "comment": "Date can be submitted in as YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSTZD (TZD is the time zone designator; use Z to express time in UTC or for time expressed in local time add a time zone offset from UTC +HH:MM or -HH:MM).",
+            "type": "string",
+            "anyOf": [
+                {"format": "date-time"},
+                {"format": "date"}
+            ]
+        },
+        "references": {
+            "title": "References",
+            "description": "The identifiers used as references for the characterization, if previously published.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "Reference",
+                "description": "An identifier used as a reference for the characterization, if previously published",
+                "type": "string",
+                "pattern": "^(PMID:[0-9]+|doi:10\\.[0-9]{4}[\\d\\s\\S\\:\\.\\/]+)$"
+            }
         }
         
     }

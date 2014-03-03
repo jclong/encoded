@@ -17,7 +17,7 @@
     ],
     "properties": {
         "schema_version": {
-            "default": "3"
+            "default": "2"
         },
         "antibody": {
             "title": "Antibody",
@@ -32,17 +32,17 @@
             "type": "string",
             "linkTo": "target"
         },
-        "characterizations_reviews": {
-            "title": "Characterizations reviews",
-            "description": "Antibody characterizations under review for a cell type.",
+        "characterizations": {
+            "title": "Characterizations",
+            "description": "Antibody characterizations under review.",
             "type": "array",
             "default": [],
             "items": {
-                "title": "Characterization review",
-                "description": "An antibody characterization under review for a cell type.",
-                "comment": "See antibody_characterization_review.json for available identifiers.",
+                "title": "Characterization",
+                "description": "An antibody characterization under review.",
+                "comment": "See antibody_characterization.json for available identifiers.",
                 "type": "string",
-                "linkTo": "antibody_characterization_review"
+                "linkTo": "antibody_characterization"
             }
         },
         "status": {
@@ -59,13 +59,7 @@
                 "NOT PURSUED",
                 "DELETED"
             ]
-        },
-        "document": {
-            "title": "Standards document",
-            "description": "A document that describe the standards used to access the antibody.  ",
-            "comment": "See document.json for available identifiers.",
-            "type": "string",
-            "linkTo": "document"
+        }
     },
     "boost_values": {
         "uuid": 1.0,

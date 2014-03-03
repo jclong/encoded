@@ -31,6 +31,46 @@
             "comment": "See target.json for available identifiers.",
             "type": "string",
             "linkTo": "target"
+        },
+        "characterization_review": {
+            "title": "Characterization reviews",
+            "description": "Characterization details reviewed by each cell type.",
+            "comment": "Do not submit, values assigned by DCC when reviewing characterization.",
+            "type": "array",
+            "default": [],
+            "permission": "import_items",
+            "items": {
+                "title": "Characterization review", 
+                "type": "object",
+                "additionalProperties": false,
+                "mixinProperties": [
+                     { "$ref": "mixins.json#/biosample_classification" }
+                ],
+                "properties": {
+                    "organism": {
+                        "title": "Organism",
+                        "comment": "See organism.json for available identifiers.",
+                        "type": "string",
+                        "linkTo": "organism"
+                    },
+                    "lane": {
+                        "title": "Lane",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "title": "Characterization status",
+                        "description": "The current state of the characterization for a particular cell. ",
+                        "type": "string",
+                        "permission": "import_items",
+                        "default": "PENDING DCC REVIEW",
+                        "enum" : [
+                            "PENDING DCC REVIEW",
+                            "COMPLIANT",
+                            "NOT COMPLIANT"
+                        ]
+                    }
+                }
+            }
         }
     }
 }
