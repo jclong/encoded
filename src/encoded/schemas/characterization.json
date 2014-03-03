@@ -73,6 +73,19 @@
                 "pattern": "^(PMID:[0-9]+|doi:10\\.[0-9]{4}[\\d\\s\\S\\:\\.\\/]+)$"
             }
         },
+        "documents": {
+            "title": "Documents",
+            "description": "Documents that provide additional information about the characterization.",
+            "type": "array",
+            "default": [],
+            "items": {
+                "title": "Document",
+                "description": "A document that provides additional information about the characterization.",
+                "type": "string",
+                "comment": "See document.json for available identifiers.",
+                "linkTo": "document"
+            }
+        },
         "status": {
             "title": "Approval status",
             "description": "The current state of the characterization.",
