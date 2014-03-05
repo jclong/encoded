@@ -47,4 +47,18 @@ def characterization_0_3(value, system):
 @upgrade_step('construct_characterization', '3', '4')
 def characterization_3_4(value, system):
     # http://redmine.encodedcc.org/issues/380
-    pass
+
+    if 'characterization_method' in value:
+        del value['characterization_method']
+
+    if 'caption' in value:
+        del value['caption']
+
+    if 'date' in value:
+        del value['date']
+
+    if 'attachment' in value:
+        del value['attachment']
+
+    if 'references' in value:
+        del value['references']
