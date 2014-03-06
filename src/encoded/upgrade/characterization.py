@@ -37,7 +37,7 @@ def characterization_0_3(value, system):
     }
     
     if 'status' in value:
-        if value['status'] in new_characterization_method.keys():
+        if value['status'] in new_status.keys():
             new_value = new_status[value['status']]
             value['status'] = new_value
 
