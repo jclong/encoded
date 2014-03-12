@@ -13,6 +13,7 @@ ORDER = [
     'organism',
     'source',
     'target',
+    'characterization_document',
     'antibody_lot',
     'antibody_characterization',
     'antibody_approval',

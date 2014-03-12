@@ -150,6 +150,16 @@ class Award(Collection):
     unique_key = 'award:name'
     item_keys = ['name']
 
+@location('characterization-documents')
+class CharacterizationDocument(Collection):
+    item_type = 'characterization_document'
+    schema = load_schema('characterization_document.json')
+    properties = {
+        'title': 'Characterization documents',
+        'description': 'Listing of Characterization Documents',
+    }
+    item_keys = ALIAS_KEYS
+
 
 @location('antibody-lots')
 class AntibodyLot(Collection):

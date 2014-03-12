@@ -1,0 +1,13 @@
+[
+    {
+        "attachment": "frowny_gel.png",
+        "award": "U54HG006998",
+        "caption": "Failed ChIP",
+        "characterization_method": "ChIP-seq comparison",
+        "date": "2011-01-10",
+        "lab": "richard-myers",
+        "submitted_by": "facilisi.tristique@potenti.vivamus",
+        "uuid": "029e4d40-a97a-11e3-a5e2-0800200c9a66",
+        "alias": "encode:test"
+    }
+]
