@@ -183,7 +183,12 @@ var Characterization = module.exports.Characterization = React.createClass({
                                 */}
 
                                 <dt>Image</dt>
-                                <dd><StatusLabel status={context.status} /></dd>
+                                <dd><StatusLabel status={context.status} />
+                                    <ul className="char-doc-list">
+                                        <li><a href="#">02-2014 standards</a></li>
+                                        <li><a href="#">02-2014 standards</a></li>
+                                    </ul>
+                                </dd>
 
                                 <dt><i className="icon-download-alt"></i> Download</dt>
                                 <dd>{download}</dd>
