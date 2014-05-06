@@ -574,7 +574,6 @@ module.exports.BrowserCaps = {
     // jpg, png, and/or svg file names to render. Sets 'src' attr of img to appropriate
     // version of image.
     browserImgRender: function(node, sourceset) {
-        this.getBrowserCaps();
 
         if (this.caps.svg && sourceset.svg) {
             node.src = sourceset.svg;

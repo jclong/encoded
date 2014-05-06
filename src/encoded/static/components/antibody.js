@@ -101,7 +101,7 @@ var Characterization = module.exports.Characterization = React.createClass({
 
     componentDidMount: function() {
         // If the browser can render SVGs, set the src attribute to best file name from sourceset attr.
-        if (this.refs.fileicon && this.refs.fileicon.props.sourceset) {
+        if (this.refs && this.refs.fileicon && this.refs.fileicon.props.sourceset) {
             // Only do img filename replacement if 'fileicon' ref is set
             this.browserImgRender(this.refs.fileicon.getDOMNode(), this.refs.fileicon.props.sourceset);
         } // otherwise, no image to load at all
@@ -114,7 +114,7 @@ var Characterization = module.exports.Characterization = React.createClass({
         var imgClass = "characterization-img characterization-file";
         var height = "100";
         var width = "100";
-        if (context.attachment) {
+        if (!context.attachment) {
             attachmentHref = url.resolve(context['@id'], context.attachment.href);
             if (context.attachment.type.split('/', 1)[0] == 'image') {
                 imgClass = 'characterization-img';
@@ -146,10 +146,12 @@ var Characterization = module.exports.Characterization = React.createClass({
                 </a>
             );
         } else {
-            src = "/static/img/file-broken.png";
-            alt = "Characterization file broken icon";
+            src = "";
+            sourceset = {png:"/static/img/file-broken.png",svg:"/static/img/file-broken.svg"};
+            alt = "Characterization File Broken Icon";
+            ref = "fileicon";
             figure = (
-                <img className={imgClass} src={src} height={height} width={width} alt={alt} />
+                <img className={imgClass} src={src} sourceset={sourceset} ref={ref} height={height} width={width} alt={alt} />
             );
             download = (
                 <em>Document not available</em>

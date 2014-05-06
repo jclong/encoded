@@ -490,10 +490,12 @@ var Document = module.exports.Document = React.createClass({
                 </a>
             );
         } else {
-            src = "/static/img/file-broken.png";
+            src = "";
+            sourceset = {png:"/static/img/file-broken.png",svg:"/static/img/file-broken.svg"};
+            ref = "fileicon";
             alt = "Characterization File Broken Icon";
             figure = (
-                <img className={imgClass} src={src} height={height} width={width} alt={alt} />
+                <img className={imgClass} src={src} sourceset={sourceset} ref={ref} height={height} width={width} alt={alt} />
             );
             download = (
                 <em>Document not available</em>
