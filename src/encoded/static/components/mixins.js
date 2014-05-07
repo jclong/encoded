@@ -556,32 +556,37 @@ var recordBrowserStats = module.exports.recordBrowserStats = function (browser_s
 };
 
 
-// Handle browser capabilities, a la Modernizr. Can *only* be called from
-// mounted components (componentDidMount method would be a good method to
-// use this from), because actual DOM is needed.
-module.exports.BrowserCaps = {
-    caps: {},
+module.exports.BrowserFeat = {
+    feat: {},
 
-    // Return object with browser capabilities
+    // Return object with browser capabilities; return from cache if available
     getBrowserCaps: function () {
-        if (Object.keys(this.caps).length === 0) {
-            this.caps.svg = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1');
+        if (Object.keys(this.feat).length === 0) {
+            this.feat.svg = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1');
         }
-        return this.caps;
+        return this.feat;
     },
 
-    // Render <img>. 'node' is DOM node of img to render. 'sourceset' is object with
-    // jpg, png, and/or svg file names to render. Sets 'src' attr of img to appropriate
-    // version of image.
-    browserImgRender: function(node, sourceset) {
+    setHtmlFeatClass: function() {
+        var htmlclass = "";
 
-        if (this.caps.svg && sourceset.svg) {
-            node.src = sourceset.svg;
-        } else if (sourceset.png) {
-            node.src = sourceset.png;
-        } else if (sourceset.jpg) {
-            node.src = sourceset.jpg;
-        } // otherwise, no image to load at all
+        this.getBrowserCaps();
 
+        // For each set feature, add to the <html> element's class
+        switch(true) {
+            case this.feat.svg:
+                htmlclass += ' svg';
+        }
+
+        // For each non-set feature, add to <html> element's class the 'no-...' version
+        switch(false) {
+            case this.feat.svg:
+                htmlclass += ' no-svg';
+        }
+        // For both these switches, allow each case to fall through to keep
+        // appending to the string of classes
+
+        // Now write the classes to the <html> DOM element
+        document.documentElement.className = htmlclass;
     }
 };

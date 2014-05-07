@@ -48,6 +48,8 @@ if (typeof window != 'undefined' && !window.TEST_RUNNER) {
     var domready = require('domready');
     domready(function ready() {
         console.log('ready');
+        var BrowserFeat = require('./mixins').BrowserFeat;
+        BrowserFeat.setHtmlFeatClass();
         var props = {};
         // Ensure the initial render is exactly the same
         props.href = document.querySelector('link[rel="canonical"]').href;
