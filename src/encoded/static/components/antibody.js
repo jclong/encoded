@@ -100,13 +100,12 @@ var Characterization = module.exports.Characterization = React.createClass({
         var context = this.props.context;
         var attachmentHref, attachmentUri;
         var figure, download, src, alt;
-        var imgClass = "characterization-img characterization-file";
         var height = "100";
         var width = "100";
         if (context.attachment) {
             attachmentHref = url.resolve(context['@id'], context.attachment.href);
             if (context.attachment.type.split('/', 1)[0] == 'image') {
-                imgClass = 'characterization-img';
+                var imgClass = 'characterization-img';
                 src = attachmentHref;
                 height = context.attachment.height;
                 width = context.attachment.width;
