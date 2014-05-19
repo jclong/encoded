@@ -27,6 +27,7 @@
     "envify": "^1.2.1",
     "brace": "^0.2.1",
     "cookie-cutter": "^0.1.1",
-    "subprocess-middleware": "^0.1.0"
+    "subprocess-middleware": "^0.1.0",
+    "browsernizr": "^1.0.2"
   }
 }

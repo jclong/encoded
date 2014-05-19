@@ -6,6 +6,9 @@ var React = require('react');
 var ReactMount = require('react/lib/ReactMount');
 ReactMount.allowFullPageRender = true;
 
+require('browsernizr/test/svg');
+require('browsernizr');
+
 var App = require('main');
 var domready = require('domready');
 
@@ -15,8 +18,6 @@ var domready = require('domready');
 if (!window.TEST_RUNNER) domready(function ready() {
     console.log('ready');
     // Set <html> class depending on browser features
-    var BrowserFeat = require('./components/mixins').BrowserFeat;
-    BrowserFeat.setHtmlFeatClass();
     var props = {};
     // Ensure the initial render is exactly the same
     props.href = document.querySelector('link[rel="canonical"]').href;
