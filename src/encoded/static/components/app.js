@@ -132,7 +132,7 @@ var App = React.createClass({
         }
 
         return (
-            <html lang="en">
+            <html lang="en" class="no-js">
                 <head>
                     <meta charSet="utf-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
