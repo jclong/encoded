@@ -92,7 +92,7 @@ def characterization3(testapp, lab, base_award, target3, antibody_lot):
         'status': 'not compliant'
     }
     return testapp.post_json('/antibody-characterizations', item, status=201).json['@graph'][0]
- 
+
 
 @pytest.fixture
 def base_approval(testapp, base_award, lab, target1, antibody_lot):
@@ -113,19 +113,12 @@ def test_audit_approval_target(testapp, characterization1, characterization3, ba
     assert any(error['category'] == 'target mismatch' for error in errors)
 
 
-def test_audit_approval_target_organism(testapp, characterization1, characterization2, base_approval):
-    testapp.patch_json(base_approval['@id'], {'characterizations': [characterization1['uuid'], characterization2['uuid']]})
-    res = testapp.get(base_approval['@id'] + '@@index-data')
-    errors = res.json['audit']
-    assert any(error['category'] == 'target organism mismatch' for error in errors)
-
-
 def test_audit_approval_no_primary(testapp, base_approval, characterization2):
     testapp.patch_json(base_approval['@id'], {'characterizations': [characterization2['uuid']]})
     res = testapp.get(base_approval['@id'] + '@@index-data')
-    print "%s" % res.json
     errors = res.json['audit']
-    assert any(error['category'] == 'no compliant characterzation 1' for error in errors)
+    print "%s" % errors
+    assert any(error['category'] == 'no compliant characterization 1' for error in errors)
 
 
 def test_audit_approval_no_secondary(testapp, base_approval, characterization1):

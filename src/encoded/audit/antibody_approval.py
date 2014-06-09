@@ -20,18 +20,9 @@ def audit_target_match(value, system):
         approv_target = value['target']
 
         # Check if approval and characterization targets match
-        if approv_target['label'] != char_target['label']:
-            detail = 'Target {} and {} mismatch'.format(approv_target['label'], char_target['label'])
+        if approv_target['@id'] != char_target['@id']:
+            detail = 'Target {} and {} mismatch'.format(approv_target['@id'], char_target['@id'])
             yield AuditFailure('target mismatch', detail, level='ERROR')
-            continue
-
-        char_organism = char_target['organism']
-        approv_organism = approv_target['organism']
-
-        # Check if approval and characterization targets are in the same organism
-        if approv_organism['name'] != char_organism['name']:
-            detail = 'Organism target {} and {} mismatch'.format(approv_organism['name'], char_organism['name'])
-            yield AuditFailure('target organism mismatch', detail, level='ERROR')
 
 
 @audit_checker('antibody_approval')
@@ -53,8 +44,8 @@ def audit_fully_characterized(value, system):
 
     if characterization_types.count('primary') < 1:
         detail = 'No primary characterization'
-        yield AuditFailure('missing primary characterization', detail, level='WARNING')
+        yield AuditFailure('no compliant characterization 1', detail, level='WARNING')
 
     if characterization_types.count('secondary') < 1:
         detail = 'No secondary characterization'
-        yield AuditFailure('missing secondary characterization', detail, level='WARNING')
+        yield AuditFailure('no compliant characterization 2', detail, level='WARNING')
