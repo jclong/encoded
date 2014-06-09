@@ -45,7 +45,8 @@
                 "mutant histone",
                 "annotation enrichment",
                 "FACs analysis",
-                "qPCR analysis"
+                "qPCR analysis",
+                "overexpression assay"
             ]
         },
         "caption": {
