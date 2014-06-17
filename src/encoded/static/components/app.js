@@ -20,11 +20,7 @@ var portal = {
 };
 
 
-var edit_actions = [
-    {id: 'edit_1', title: 'Edit item 1', trigger: 'edit_1'},
-    {id: 'edit_2', title: 'Edit item 2', trigger: 'edit_2'},
-    {id: 'edit_3', title: 'Edit item 3', trigger: 'edit_3'}
-];
+var edit_actions = {id: 'edit', title: 'Edit', url: "#!edit"};
 
 var user_actions = [
     {id: 'signout', title: 'Sign out', trigger: 'logout'}
@@ -37,10 +33,11 @@ var inline = fs.readFileSync(__dirname + '/../inline.js', 'utf8');
 // It lives for the entire duration the page is loaded.
 // App maintains state for the
 var App = React.createClass({
-    mixins: [mixins.Persona, mixins.HistoryAndTriggers],
+    mixins: [mixins.Persona, mixins.HistoryAndTriggers, mixins.Editor],
     triggers: {
         login: 'triggerLogin',
-        logout: 'triggerLogout'
+        logout: 'triggerLogout',
+        edit: 'triggerEdit'
     },
 
     getInitialState: function() {
@@ -58,7 +55,6 @@ var App = React.createClass({
         var context = this.props.context;
         var hash = url.parse(this.props.href).hash || '';
         var name;
-        var key;
         if (hash.slice(0, 2) === '#!') {
             name = hash.slice(2);
         }
@@ -94,7 +90,7 @@ var App = React.createClass({
         var appClass = 'done';
         if (this.props.slow) {
         	appClass = 'communicating'; 
-        };
+        }
 
         var title = globals.listing_titles.lookup(context)({
             context: context,
