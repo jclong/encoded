@@ -20,6 +20,12 @@ var portal = {
 };
 
 
+var edit_actions = [
+    {id: 'edit_1', title: 'Edit item 1', trigger: 'edit_1'},
+    {id: 'edit_2', title: 'Edit item 2', trigger: 'edit_2'},
+    {id: 'edit_3', title: 'Edit item 3', trigger: 'edit_3'}
+];
+
 var user_actions = [
     {id: 'signout', title: 'Sign out', trigger: 'logout'}
 ];
@@ -41,6 +47,7 @@ var App = React.createClass({
         return {
             errors: [],
             portal: portal,
+            edit_actions: edit_actions,
             user_actions: user_actions
         };
     },
@@ -58,7 +65,7 @@ var App = React.createClass({
         if (context) {
             var actions = this.props.context.actions;
             if (actions && actions.length) {
-                var actions = (
+                actions = (
                     <div className="navbar navbar-default">
                         <div className="container">
                             {actions.map(action => <a href={action.href}><button className={action.className}>{action.title}</button></a>)}
@@ -66,7 +73,7 @@ var App = React.createClass({
                     </div>
                 );
             } else {
-                var actions = '';
+                actions = '';
             }
 
             var ContentView = globals.content_views.lookup(context, name);
@@ -123,6 +130,7 @@ var App = React.createClass({
 								   
                             <div id="layout">
                                 <NavBar href={this.props.href} portal={this.state.portal}
+                                        edit_actions={this.state.edit_actions}
                                         user_actions={this.state.user_actions} session={this.state.session}
                                         loadingComplete={this.state.loadingComplete} />
                                 <div id="content" className="container" key={key}>
