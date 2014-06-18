@@ -18,7 +18,7 @@ var Dbxref = dbxref.Dbxref;
         target: {title: 'Targets'},
         dataset: {title: 'Datasets'},
         image: {title: 'Images'}
-    }
+    };
 
     var Listing = module.exports.Listing = function (props) {
         // XXX not all panels have the same markup
@@ -40,7 +40,7 @@ var Dbxref = dbxref.Dbxref;
                     </div>
                 );
             } else {
-                return <span/>
+                return (<span/>);
             }
         }
     };
@@ -83,10 +83,11 @@ var Dbxref = dbxref.Dbxref;
                             </div>
                             <div className="accession">
                                 <a href={result['@id']}>
-                                    {result['target.label'] + ' ('}
-                                    <em>{result['target.organism.scientific_name']}</em>
-                                    {')'}
-                                </a> 
+                                    {result['target.label']}
+                                </a>
+                                {' ('}
+                                <em>{result['target.organism.scientific_name']}</em>
+                                {')'}
                             </div>
                         </div>
                         <div className="data-row"> 
@@ -118,10 +119,11 @@ var Dbxref = dbxref.Dbxref;
                             </div>
                             <div className="accession">
                                 <a href={result['@id']}>
-                                    {result['biosample_term_name'] + ' ('}
-                                    <em>{result['organism.scientific_name']}</em>
-                                    {separator + lifeStage + age + ageUnits + ')'}
-                                </a> 
+                                    {result['biosample_term_name']}
+                                </a>
+                                {' ('}
+                                <em>{result['organism.scientific_name']}</em>
+                                {separator + lifeStage + age + ageUnits + ')'}
                             </div>
                         </div>
                         <div className="data-row">
@@ -205,14 +207,14 @@ var Dbxref = dbxref.Dbxref;
                             <div className="accession">
                                 <a href={result['@id']}>
                                     {result['assay_term_name']}<span>{result['biosample_term_name'] ? ' of ' + result['biosample_term_name'] : ''}</span>
-                                    {name || lifeStage || age || ageUnits ?
-                                        <span>
-                                            {' ('}
-                                            {name ? <em>{name}</em> : ''}
-                                            {separator + lifeStage + age + ageUnits + ')'}
-                                        </span>
-                                    : ''}
                                 </a>
+                                {name || lifeStage || age || ageUnits ?
+                                    <span>
+                                        {' ('}
+                                        {name ? <em>{name}</em> : ''}
+                                        {separator + lifeStage + age + ageUnits + ')'}
+                                    </span>
+                                : ''}
                             </div>
                         </div>
                         <div className="data-row">
@@ -282,10 +284,11 @@ var Dbxref = dbxref.Dbxref;
                             </div>
                             <div className="accession">
                                 <a href={result['@id']}>
-                                    {result['label'] + ' ('}
-                                    <em>{result['organism.scientific_name']}</em>
-                                    {')'}
-                                </a> 
+                                    {result['label']}
+                                </a>
+                                {' ('}
+                                <em>{result['organism.scientific_name']}</em>
+                                {')'}
                             </div>
                         </div>
                         <div className="data-row">

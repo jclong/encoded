@@ -93,11 +93,6 @@
     width: 90%;
 }
 
-.accession a {
-    width: 90%;
-    display:block;
-}
-
 .accession div {
     font-size: 0.8em;
     font-weigt: normal;
@@ -187,7 +182,6 @@
 
         a {
             text-decoration: none;
-            display: block;
 
             @include transition(font-size 0.3s ease, background-color 0.3s ease);
         }
