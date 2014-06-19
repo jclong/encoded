@@ -46,7 +46,7 @@ def audit_experiment_target(value, system):
     if value['status'] == 'deleted':
         return
 
-    if ('assay_term_name' not in value) or (value['assay_term_name'] not in ['ChIP-seq', 'RNA Bind-n-Seq']):
+    if ('assay_term_name' not in value) or (value['assay_term_name'] not in ['ChIP-seq', 'RNA Bind-n-Seq', 'CLIP-seq', 'RIP-seq', 'ChIA-PET']):
         return
 
     if 'target' not in value:
@@ -54,17 +54,28 @@ def audit_experiment_target(value, system):
         yield AuditFailure('missing target', detail, level='ERROR')
         return
 
-    target = value['target']['name']
-    if target.startswith('Control'):
+    expt_target = value['target']['name']
+    if expt_target.startswith('Control'):
         return
+
+    antibodies = []
 
     for rep in value['replicates']:
         if 'antibody' not in rep:
-            detail = 'rep {} missing antibody'.format(rep["uuid"])
+            detail = 'replicate {} missing antibody'.format(rep["uuid"])
             yield AuditFailure('missing antibody', detail, level='ERROR')
-            # What we really want here is a way to the approval, we want to know
-            # if there is an approval for this antibody to this target
-            # likely we should check if it the right species before thie point, or in library check
+            continue
+
+        if not antibodies:
+            antibodies.append(rep['antibody']['@id'])
+        else:
+            if rep['antibody']['@id'] not in antibodies:
+                detail = 'experiment {} has mismatched antibodies in replicate'.format(value['@id'])
+                yield AuditFailure('antibody mismatch', detail, level='ERROR')
+
+        if not rep['antibody']['approvals']:
+            detail = 'missing approval for antibody {}'.format(rep['antibody']['@id'])
+            yield AuditFailure('missing approval', detail, level='WARNING')
 
 
 @audit_checker('experiment')
@@ -101,7 +112,7 @@ def audit_experiment_biosample_term(value, system):
     '''
     if value['status'] == 'deleted':
         return
-    
+
     if 'biosample_term_id' not in value:
         return
 
@@ -153,7 +164,7 @@ def audit_experiment_biosample_term(value, system):
 
 
 @audit_checker('experiment')
-def audit_experiment_paired_end(value,system):
+def audit_experiment_paired_end(value, system):
     '''
     Check that if the concordance of replicate and library information for paired end sequencing.
     '''
@@ -206,3 +217,39 @@ def audit_experiment_paired_end(value,system):
         if rep['paired_ended'] != lib['paired_ended'] and lib['paired_ended'] == False:
             detail = 'paired ended mismatch between {} - {}'.format(rep['uuid'], lib['accession'])
             yield AuditFailure('paired end mismatch', detail, level='ERROR')
+
+'''
+@audit_checker('experiment')
+def audit_experiment_antibody_target(value, system):
+
+    # Check that experiment and antibody approval target are the same.
+
+
+    if value['status'] == 'deleted':
+        return
+
+    term_name = value.get('assay_term_name')
+
+    if term_name not in ['ChIP-seq', 'CLIP-seq', 'RIP-seq', 'ChIA-PET']:
+        return
+
+    expt_target = value['target']
+    app_target = ''
+    matching_target_found = False
+
+    for rep in value['replicates']:
+        if 'antibody' not in rep:
+            detail = 'rep {} missing antibody'.format(rep["uuid"])
+            yield AuditFailure('missing antibody', detail, level='ERROR')
+        else:
+            antibody = rep['antibody']
+
+            for app in antibody['approvals']:
+                app_target = app['target']
+                if expt_target['@id'] == app_target['@id']:
+                    matching_target_found = True
+
+    if not matching_target_found:
+        detail = 'experiment target {} and antibody target {} mismatch'.format(expt_target['@id'], app_target['@id'])
+        yield AuditFailure('antibody target mismatch', detail, level='ERROR')
+'''
