@@ -16,15 +16,7 @@ var portal = {
         {id: 'biosamples', title: 'Biosamples', url: '/search/?type=biosample'},
         {id: 'experiments', title: 'Experiments', url: '/search/?type=experiment'},
         {id: 'targets', title: 'Targets', url: '/search/?type=target'}
-    ],
-    // Should readlly be singular...
-    types: {
-        antibody_approval: {title: 'Antibodies'},
-        biosample: {title: 'Biosamples'},
-        experiment: {title: 'Experiments'},
-        target: {title: 'Targets'},
-        dataset: {title: 'Datasets'}
-    }
+    ]
 };
 
 
@@ -59,16 +51,29 @@ var App = React.createClass({
         var context = this.props.context;
         var hash = url.parse(this.props.href).hash || '';
         var name;
-        var key;
         if (hash.slice(0, 2) === '#!') {
             name = hash.slice(2);
         }
         if (context) {
+            var actions = this.props.context.actions;
+            if (actions && actions.length) {
+                actions = (
+                    <div className="navbar navbar-default">
+                        <div className="container">
+                            {actions.map(action => <a href={action.href}><button className={action.className}>{action.title}</button></a>)}
+                        </div>
+                    </div>
+                );
+            } else {
+                actions = null;
+            }
+
             var ContentView = globals.content_views.lookup(context, name);
             content = this.transferPropsTo(ContentView({
                 loadingComplete: this.state.loadingComplete,
                 session: this.state.session,
                 portal: this.state.portal,
+                actions: actions,
                 navigate: this.navigate
             }));
         }
@@ -81,7 +86,7 @@ var App = React.createClass({
         var appClass = 'done';
         if (this.props.slow) {
         	appClass = 'communicating'; 
-        };
+        }
 
         var title = globals.listing_titles.lookup(context)({
             context: context,
