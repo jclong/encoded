@@ -146,5 +146,23 @@
             "type": "string",
             "format": "uri"
         }
+    },
+    "facets": {
+        "antibody.source.title": {
+            "title": "Source",
+            "type": "string"
+        },
+        "clonality": {
+            "title": "Clonality",
+            "type": "string"
+        },
+        "product_id": {
+            "title": "Product ID",
+            "type": "string"
+        },
+        "lot_id": {
+            "title": "Lot ID",
+            "type": "string"
+        }
     }
 }

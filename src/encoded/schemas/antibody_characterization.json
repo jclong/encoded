@@ -50,5 +50,23 @@
             "type": "string",
             "linkTo": "target"
         }
+    },
+    "facets": {
+        "target.label": {
+            "title": "Target",
+            "type": "string"
+        },
+        "target.organism.scientific_name": {
+            "title": "Species",
+            "type": "string"
+        },
+        "characterization.characterization_method": {
+            "title": "Characterization method",
+            "type": "string"
+        },
+        "status": {
+            "title": "Status",
+            "type": "string"
+        }
     }
 }
