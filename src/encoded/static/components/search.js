@@ -551,6 +551,76 @@ var Dbxref = dbxref.Dbxref;
         }
     });
 
+    var AdvSearch = React.createClass({
+        getInitialState: function() {
+            return {
+                disclosed: false,
+                terms: {}
+            };
+        },
+
+        handleCBChange: function(e) {
+            this.setState({disclosed: e.target.checked});
+        },
+
+        handleChange: function(e) {
+            var newTerms = this.state.terms;
+            newTerms[e.target.name] = e.target.value;
+            this.setState({terms: newTerms});
+        },
+
+        render: function() {
+            var query = '';
+            Object.keys(this.state.terms).forEach(function(key, i) {
+                query += this.state.terms[key] ? '&searchTerm=' + this.state.terms[key].replace(/ /g, "+") : '';
+            }.bind(this));
+            query = '/search/?' + query.substr(1);
+
+            return (
+                <div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" onChange={this.handleCBChange}/> Advanced search</label>
+                    </div>
+                    {this.state.disclosed ?
+                        <form id="adv-search" role="form">
+                            <div className="row">
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm1">Search term 1</label>
+                                    <input type="text" className="form-control" name="term1" onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm2">Search term 2</label>
+                                    <input type="text" className="form-control" name="term2" onChange={this.handleChange} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm3">Search term 3</label>
+                                    <input type="text" className="form-control" name="term3" onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm4">Search term 4</label>
+                                    <input type="text" className="form-control" name="term4" onChange={this.handleChange} />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm5">Search term 5</label>
+                                    <input type="text" className="form-control" name="term5" onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group col-sm-6">
+                                    <label for="searchTerm6">Search term 6</label>
+                                    <input type="text" className="form-control" name="term6" onChange={this.handleChange} />
+                                </div>
+                            </div>
+                            <a className="btn btn-primary" href={query}>Submit</a>
+                        </form>
+                    : null}
+                </div>
+            );
+        }
+    });
+
     var ResultTable = search.ResultTable = React.createClass({
 
         getDefaultProps: function() {
@@ -584,6 +654,7 @@ var Dbxref = dbxref.Dbxref;
                                 )}
                             </div>
                             <div className="col-sm-7 col-md-8 col-lg-9">
+                                <AdvSearch />
                                 {context['notification'] === 'Success' ?
                                     <h4>
                                         Showing {results.length} of {total} 
