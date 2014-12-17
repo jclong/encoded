@@ -22,6 +22,7 @@ before_install:
   - initdb --version
   - sudo service elasticsearch stop
   - elasticsearch -v
+  - gem install compass
 install:
   - python bootstrap.py -v 2.2.5
   - bin/buildout -c buildout-travis.cfg || (echo "Retrying buildout" && bin/buildout -c buildout-travis.cfg)
