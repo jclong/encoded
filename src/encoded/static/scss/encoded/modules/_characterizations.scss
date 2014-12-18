@@ -13,10 +13,15 @@ $characterization-figure-height: 200px;
 
 
 /* clear first in row in ie 8 or lower */
-.multi-columns-row .first-in-row {
-    clear: left;
-}
+.multi-columns-row {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #d0d0d0;
 
+    [class^='col-'] {
+        padding: 0;
+    }
+}
 
 /* clear the first in row for any block that has the class "multi-columns-row" */
 @media (min-width: $screen-sm-min) {
@@ -92,6 +97,10 @@ $characterization-figure-height: 200px;
 
 .type-document.view-detail {
     padding: 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff #e0e0e0 #a0a0a0;
+    @include border-radius(0);
 
     figure {
         margin: 14px;
@@ -103,6 +112,10 @@ $characterization-figure-height: 200px;
         font-weight: bold;
         text-align: center;
         padding: 5px;
+    }
+
+    .panel-heading {
+        background-color: darken($panel-data-heading-bg,5%);
     }
 }
 

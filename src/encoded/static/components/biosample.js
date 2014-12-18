@@ -831,7 +831,7 @@ var Document = module.exports.Document = React.createClass({
             // Each section is a panel; name all Bootstrap 3 sizes so .multi-columns-row class works
             <section className="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <div className={globals.itemClass(context, panelClass)}>
-                    <div className="panel-header document-title sentence-case">
+                    <div className="panel-heading sentence-case">
                         {characterization ? context.characterization_method : context.document_type}
                     </div>
                     <div className="panel-body">
