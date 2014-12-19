@@ -401,7 +401,7 @@ var AssayDetails = module.exports.AssayDetails = function (props) {
     }
 
     return (
-        <div className="panel">
+        <div className="panel panel-assay">
             <div className="panel-heading">
                 <h3>Assay details</h3>
             </div>
@@ -491,7 +491,7 @@ var Replicate = module.exports.Replicate = function (props) {
     var biosample = library && library.biosample;
     var paired_end = replicate.paired_ended;
     return (
-        <div key={props.key} className="panel">
+        <div key={props.key} className="panel panel-replicate">
             <div className="panel-heading">
                 <h3>Biological replicate - {replicate.biological_replicate_number}</h3>
             </div>
