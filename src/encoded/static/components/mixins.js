@@ -628,32 +628,60 @@ module.exports.HistoryAndTriggers = {
 // Handle browser capabilities, a la Modernizr. Can *only* be called from
 // mounted components (componentDidMount method would be a good method to
 // use this from), because actual DOM is needed.
+
+// List properties to test with the general test. There can be other properties
+// That have to be tested specially, like svg.
+// Each key in testProperties is what gets put into the html class. Each value is
+// the corresponding CSS property to test, along with the browser prefixes.
+var testProperties = {flexbox: 'flexBasis'};
+var browserPrefixes = ['Webkit', 'Moz', 'O', 'ms', 'Khtml'];
+
 module.exports.BrowserFeat = {
     feat: {},
 
     // Return object with browser capabilities; return from cache if available
     getBrowserCaps: function () {
+        // Test whether the given property is supported in the browser; return true if it's supported
+        function testWithPrefixes(property) {
+            // Make an array of the CSS property to test along with possible prefixed versions
+            var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+            var transProp = (property + ' ' + browserPrefixes.join(upperProp + ' ') + upperProp).split(' ');
+
+            // For each property and its possible prefixes, see if the property exists
+            // in the test element we made. It's an empty string if it exists; undefined if it doesn't.
+            var match = transProp.some(function(prop) {
+                return testerEl.style[prop] === '';
+            });
+            return match;
+        }
+
+        // If the 'feat' property of this object already has stuff in it, just return that.
+        // Otherwise, we need to fill it with stuff.
         if (Object.keys(this.feat).length === 0) {
+            // Make an empty element in the DOM we can test on
+            var testerEl = document.createElement('tester');
+
+            // Test each property using the generic method
+            Object.keys(testProperties).forEach(function(prop) {
+                this.feat[prop] = testWithPrefixes(testProperties[prop]);
+            }, this);
+
+            // Now test specifically for SVG which can't be tested with the generic method
             this.feat.svg = document.implementation.hasFeature('http://www.w3.org/TR/SVG11/feature#Image', '1.1');
         }
+
         return this.feat;
     },
 
     setHtmlFeatClass: function() {
-        var htmlclass = [];
-
+        // Get the browser's capabilities and put them into the 'feat' property
         this.getBrowserCaps();
 
         // For each set feature, add to the <html> element's class
-        var keys = Object.keys(this.feat);
-        var i = keys.length;
-        while (i--) {
-            if (this.feat[keys[i]]) {
-                htmlclass.push(keys[i]);
-            } else {
-                htmlclass.push('no-' + keys[i]);
-            }
-        }
+        var htmlclass = [];
+        Object.keys(this.feat).forEach(function(key) {
+            htmlclass.push(this.feat[key] ? key : 'no-' + key);
+        }, this);
 
         // Now write the classes to the <html> DOM element
         document.documentElement.className = htmlclass.join(' ');
