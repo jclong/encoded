@@ -51,55 +51,90 @@ var Dataset = module.exports.Dataset = React.createClass({
                     </div>
                 </header>
                 <div className="panel data-display">
-                    <dl className="key-value">
-                        <dt>Accession</dt>
-                        <dd>{context.accession}</dd>
+                    <div className="panel-heading">
+                        <h3>Summary</h3>
+                    </div>
+                    <div className="panel-body">
+                        <dl className="key-value">
+                            <div>
+                                <dt>Accession</dt>
+                                <dd>{context.accession}</dd>
+                            </div>
 
-                        {context.description ? <dt>Description</dt> : null}
-                        {context.description ? <dd>{context.description}</dd> : null}
+                            {context.description ?
+                                <div>
+                                    <dt>Description</dt>
+                                    <dd>{context.description}</dd>
+                                </div>
+                            : null}
 
-                        {context.dataset_type ? <dt>Dataset type</dt> : null}
-                        {context.dataset_type ? <dd className="sentence-case">{context.dataset_type}</dd> : null}
-                        
-                        {context.lab ? <dt>Lab</dt> : null}
-                        {context.lab ? <dd>{context.lab.title}</dd> : null}
-                        
-                        {context.aliases.length ? <dt>Aliases</dt> : null}
-                        {context.aliases.length ? <dd>
-                            <DbxrefList values={context.aliases} />
-                         </dd> : null}
-                        
-                        <dt>External resources</dt>
-                        <dd>
-                            {context.dbxrefs.length ?
-                                <DbxrefList values={context.dbxrefs} />
-                            : <em>None submitted</em> }
-                        </dd>
+                            {context.dataset_type ?
+                                <div>
+                                    <dt>Dataset type</dt>
+                                    <dd className="sentence-case">{context.dataset_type}</dd>
+                                </div>
+                            : null}
+                            
+                            {context.lab ?
+                                <div>
+                                    <dt>Lab</dt>
+                                    <dd>{context.lab.title}</dd>
+                                </div>
+                            : null}
+                            
+                            {context.aliases.length ?
+                                <div>
+                                    <dt>Aliases</dt>
+                                    <dd><DbxrefList values={context.aliases} /></dd>
+                                </div>
+                            : null}
 
-                        {context.references.length ? <dt>References</dt> : null}
-                        {context.references.length ? <dd><DbxrefList values={context.references} className="horizontal-list"/></dd> : null}
-                    </dl>
+                            <div>
+                                <dt>External resources</dt>
+                                <dd>
+                                    {context.dbxrefs.length ?
+                                        <DbxrefList values={context.dbxrefs} />
+                                    :
+                                        <em>None submitted</em>
+                                    }
+                                </dd>
+                            </div>
+
+                            {context.references.length ?
+                                <div>
+                                    <dt>References</dt>
+                                    <dd><DbxrefList values={context.references} className="horizontal-list"/></dd>
+                                </div>
+                            : null}
+                        </dl>
+                    </div>
                 </div>
 
                 {Object.keys(datasetDocuments).length ?
-                    <div>
-                        <h3>Dataset documents</h3>
-                        <div className="row">
+                    <div className="panel">
+                        <div className="panel-heading">
+                            <h3>Dataset documents</h3>
+                        </div>
+                        <div className="row multi-columns-row">
                             {datasetDocuments}
                         </div>
                     </div>
                 : null}
 
                 {experiments.length ?
-                    <div>
-                        <h3>Related experiments for dataset {context.accession}</h3>
+                    <div className="panel">
+                        <div className="panel-heading">
+                            <h3>Related experiments for dataset {context.accession}</h3>
+                        </div>
                         <ExperimentTable items={experiments} />
                     </div>
                 : null }
 
                 {context.files.length ?
-                    <div>
-                        <h3>Files for dataset {context.accession}</h3>
+                    <div className="panel">
+                        <div className="panel-heading">
+                            <h3>Files for dataset {context.accession}</h3>
+                        </div>
                         <FileTable items={context.files} />
                     </div>
                 : null }

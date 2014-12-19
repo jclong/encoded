@@ -22,15 +22,22 @@ var Publication = module.exports.Panel = React.createClass({
                 </div>
 
                 {context.abstract || context.data_used || (context.datasets && context.datasets.length) || (context.references && context.references.length) ?
-                    <div className="view-detail panel">
-                        {this.transferPropsTo(<Abstract />)}
+                    <div className="panel">
+                        <div className="panel-heading">
+                            <h3>Summary</h3>
+                        </div>
+                        <div className="panel-body view-detail">
+                            {this.transferPropsTo(<Abstract />)}
+                        </div>
                     </div>
                 : null}
 
                 {context.supplementary_data && context.supplementary_data.length ?
-                    <div>
-                        <h3>Related data</h3>
-                        <div className="panel view-detail" data-test="supplementarydata">
+                    <div className="panel">
+                        <div className="panel-heading">
+                            <h3>Related data</h3>
+                        </div>
+                        <div className="panel-body view-detail" data-test="supplementarydata">
                             {context.supplementary_data.map(function(data, i) {
                                 return <SupplementaryData data={data} key={i} />;
                             })}

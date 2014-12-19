@@ -17,18 +17,23 @@
         margin: 0;
         font-size: 1.5em;
     }
+
+    h4 {
+        margin: 0;
+        font-size: 1.1em;
+    }
 }
 
 .panel-body {
     padding: 15px 30px;
 }
 
-.panel.type-document {
+.panel.type-document,
+.panel.type-biosample_characterization,
+.panel.type-characterization {
     border: none;
     margin-bottom: 0;
 }
-
-.panel h3, .panel h4 {color: #0A253D;}
 
 .view-detail h3 {line-height: 24.5px;}
 
