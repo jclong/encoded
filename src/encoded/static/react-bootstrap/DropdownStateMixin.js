@@ -1,5 +1,4 @@
-"use strict";
-var React = require("react");
+import React     from './react-es6';
 
 var DropdownStateMixin = {
   getInitialState: function () {
@@ -61,4 +60,4 @@ var DropdownStateMixin = {
   }
 };
 
-exports["default"] = DropdownStateMixin;
+export default = DropdownStateMixin;

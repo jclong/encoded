@@ -1,5 +1,4 @@
-"use strict";
-exports["default"] = {
+export default = {
   CLASSES: {
     'column': 'col',
     'button': 'btn',

@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 var React = require('react');
-var constants = require("./constants")["default"];
+var constants = require('./constants');
 
 var BootstrapMixin = {
   propTypes: {
@@ -33,4 +33,4 @@ var BootstrapMixin = {
   }
 };
 
-exports["default"] = BootstrapMixin;
+module.exports = BootstrapMixin;
