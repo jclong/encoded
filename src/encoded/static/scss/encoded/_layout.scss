@@ -4,6 +4,15 @@
     min-height: 100%;
 }
 
+.encode-brand {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 88px;
+    height: 16px;
+    background: url('/static/img/encode-brand.svg') no-repeat 0 0;
+}
+
 .homepage-main-box {
 	min-height: 400px;
 	background: url('/static/img/encode-bg-gray.png') no-repeat center;

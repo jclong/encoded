@@ -59,7 +59,7 @@ var NavBarLayout = React.createClass({
         return (
             <div id="navbar" className="navbar navbar-fixed-top navbar-inverse">
                 <div className="container">
-                    <Navbar brand={portal.portal_title} brandlink="/" noClasses={true} data-target="main-nav">
+                    <Navbar brand={portal.portal_title} brandClasses="encode-brand" hiddenBrand brandlink="/" noClasses={true} data-target="main-nav">
                         <GlobalSections global_sections={portal.global_sections} section={section} />
                         {this.transferPropsTo(<UserActions />)}
                         {context_actions ? this.transferPropsTo(<ContextActions />) : null}

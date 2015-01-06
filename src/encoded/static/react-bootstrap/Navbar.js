@@ -60,6 +60,9 @@ var Navbar = React.createClass({
       "in": !this.state.collapsed
     });
 
+    var navBarCss = "navbar-brand" + (this.props.brandClasses ? ' ' + this.props.brandClasses : '') +
+                    (this.props.hiddenBrand ? '' : '');
+
     return (
       <nav className={classSet(classes)} role="navigation">
         <div className="navbar-header">
@@ -70,7 +73,7 @@ var Navbar = React.createClass({
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href={this.props.brandlink}>{this.props.brand}</a>
+          <a className={navBarCss} href={this.props.brandlink}>{this.props.brand}</a>
         </div>
 
         <div className={collapseClass} id={this.props.target}>
