@@ -6,11 +6,11 @@
 
 .encode-brand {
     float: left;
-    margin: 0;
+    margin: 0 10px 0 0 !important;
     padding: 0;
     width: 88px;
-    height: 16px;
-    background: url('/static/img/encode-brand.svg') no-repeat 0 0;
+    height: 40px;
+    background: url('/static/img/encode-brand.svg') no-repeat center;
 }
 
 .homepage-main-box {

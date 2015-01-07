@@ -21,10 +21,6 @@ dd.h3, dd.h4 {
         padding-top: 0;
         padding-bottom: 2px;
         text-align: left;
-
-        &:after {
-            content: ": ";
-        }
     }
 
     dt, dd {
@@ -48,7 +44,6 @@ dd.h3, dd.h4 {
         dt {
             float: left;
             width: $component-offset-horizontal;
-            text-align: right;
             clear: left;
 
         }
@@ -60,7 +55,7 @@ dd.h3, dd.h4 {
         }
 
         dd {
-            margin-left: 200px;
+            margin-left: $component-offset-horizontal + 10;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }

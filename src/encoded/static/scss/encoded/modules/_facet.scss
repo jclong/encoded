@@ -27,7 +27,7 @@
     margin-bottom: 1px;
     border-radius: 5px;
     position: relative;
-    font-size: 0.9em;
+    font-size: 1.1em;
     line-height: 14px;
 
     i {
@@ -86,7 +86,7 @@
 
 .accession {
     position: relative;
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: bold;
     z-index: 0;
 
@@ -107,7 +107,7 @@
 }
 
 .type {
-    font-size: 0.9em;
+    font-size: 1.1em;
     font-weight: normal;
     color: #808080;
 }
@@ -132,7 +132,7 @@
                 padding: 0;
                 border: none;
                 background-color: transparent;
-                font-size: 18px;
+                font-size: 1.4em;
             }
         }
     }
@@ -140,7 +140,7 @@
 
 .meta-title {
     margin-bottom: 7px !important;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: #606060 !important;
 }
 
@@ -155,6 +155,7 @@ div.meta-status {
 .data-row {
     margin-left: 25px;
     margin-bottom: 10px;
+    font-size: 1.2em;
 }
 
 .data-row ul {
@@ -171,7 +172,7 @@ div.meta-status {
     margin-right: 5px;  
 }
 
-.data-row ul li a{
+.data-row ul li a {
     display: inline;    
 }
 
