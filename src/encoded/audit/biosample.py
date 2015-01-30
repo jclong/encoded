@@ -27,7 +27,7 @@ term_mapping = {
 }
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame='object')
 def audit_biosample_term(value, system):
     '''
     Biosample_term_id and biosample_term_name
@@ -70,7 +70,7 @@ def audit_biosample_term(value, system):
         raise AuditFailure('mismatched biosample_term', detail, level='DCC_ACTION')
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame='object')
 def audit_biosample_culture_date(value, system):
     '''
     A culture_harvest_date should not precede
@@ -92,7 +92,7 @@ def audit_biosample_culture_date(value, system):
         raise AuditFailure('invalid dates', detail, level='ERROR')
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame=['organism', 'donor', 'donor.organism'])
 def audit_biosample_donor(value, system):
     '''
     A biosample should have a donor.
@@ -112,7 +112,7 @@ def audit_biosample_donor(value, system):
 
     donor = value['donor']
     if value['organism']['name'] != donor['organism']['name']:
-        detail = 'Biosample {} has organism {}, yet its donor {} has organism {}. Biosamples require a donor of the same species'.format(
+        detail = 'Biosample {} is organism {}, yet its donor {} is organism {}. Biosamples require a donor of the same species'.format(
             value['accession'],
             value['organism']['name'],
             donor['accession'],
@@ -120,7 +120,7 @@ def audit_biosample_donor(value, system):
         raise AuditFailure('mismatched organism', detail, level='ERROR')
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame='object')
 def audit_biosample_subcellular_term_match(value, system):
     '''
     The subcellular_fraction_term_name and subcellular_fraction_term_id
@@ -135,14 +135,14 @@ def audit_biosample_subcellular_term_match(value, system):
 
     expected_name = term_mapping[value['subcellular_fraction_term_name']]
     if expected_name != (value['subcellular_fraction_term_id']):
-        detail = 'Biosample {} has mismatch between subcellular_fraction_term_name "{}" and subcellular_fraction_term_id "{}"'.format(
+        detail = 'Biosample {} has a mismatch between subcellular_fraction_term_name "{}" and subcellular_fraction_term_id "{}"'.format(
             value['accession'],
             value['subcellular_fraction_term_name'],
             value['subcellular_fraction_term_id'])
         raise AuditFailure('mismatched subcellular_fraction_term', detail, level='ERROR')
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame='object')
 def audit_biosample_depleted_term_match(value, system):
     '''
     The depleted_in_term_name and depleted_in_term_name
@@ -156,7 +156,7 @@ def audit_biosample_depleted_term_match(value, system):
         return
 
     if len(value['depleted_in_term_name']) != len(value['depleted_in_term_id']):
-        detail = 'Biosample {} has depleted_in_term_name array and depleted_in_term_id array of differing lengths'.format(
+        detail = 'Biosample {} has a depleted_in_term_name array and depleted_in_term_id array of differing lengths'.format(
             value['accession'])
         raise AuditFailure('mismatched depleted_in_term length', detail, level='ERROR')
         return
@@ -170,7 +170,7 @@ def audit_biosample_depleted_term_match(value, system):
             raise AuditFailure('mismatched depleted_in_term', detail, level='ERROR')
 
 
-@audit_checker('biosample')
+@audit_checker('biosample', frame='object')
 def audit_biosample_transfection_type(value, system):
     '''
     A biosample with constructs or rnais should have a
