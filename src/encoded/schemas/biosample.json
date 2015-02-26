@@ -165,6 +165,16 @@
                 "linkTo": "rnai"
             }
         },
+          "supercedes": {
+            "items": {
+                "comment": "See biosample.json for a list of available identifiers.",
+                "type": "string",
+                "linkTo": "biosample"
+            },
+            "type": "array",
+            "description": "The biosample that this biosample replaces.",
+            "title": "Supercedes"
+        },
         "talens": {
             "title": "TALEN constructs",
             "description": "TALEN constructs used to modify the biosample",
