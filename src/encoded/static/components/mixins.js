@@ -401,7 +401,7 @@ module.exports.HistoryAndTriggers = {
         }
 
         // data-trigger links invoke custom handlers.
-        var data_trigger = target.getAttribute('data-trigger');
+        var data_trigger = target.getAttribute('data-trigger') || (target.parentElement && target.parentElement.getAttribute('data-trigger'));
         if (data_trigger !== null) {
             event.preventDefault();
             this.trigger(data_trigger);
