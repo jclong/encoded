@@ -62,7 +62,7 @@ var NavBarLayout = React.createClass({
         return (
             <div id="navbar" className="navbar navbar-fixed-top navbar-inverse">
                 <div className="container">
-                    <Navbar brand={brand} toggleNavKey={0} bsStyle="" bsClass="" data-target="main-nav">
+                    <Navbar brand={brand} toggleNavKey={0} bsStyle="primary" bsClass="nav" data-target="main-nav">
                         <CollapsableNav eventKey={0}>
                             <GlobalSections global_sections={portal.global_sections} section={section} />
                             <UserActions {...this.props} />
