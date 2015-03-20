@@ -4,9 +4,12 @@ var url = require('url');
 var mixins = require('./mixins');
 var productionHost = require('./globals').productionHost;
 var _ = require('underscore');
-var Navbar = require('../react-bootstrap/Navbar');
-var Nav = require('../react-bootstrap/Nav');
-var NavItem = require('../react-bootstrap/NavItem');
+var Navbar = require('react-bootstrap/lib/Navbar');
+var CollapsableNav = require('react-bootstrap/lib/CollapsableNav');
+var Nav = require('react-bootstrap/lib/Nav');
+var NavItem = require('react-bootstrap/lib/NavItem');
+var DropdownButton = require('react-bootstrap/lib/DropdownButton');
+var MenuItem = require('react-bootstrap/lib/MenuItem');
 
 // Hide data from NavBarLayout
 var NavBar = React.createClass({
@@ -55,14 +58,17 @@ var NavBarLayout = React.createClass({
         var session = this.props.session;
         var user_actions = this.props.user_actions;
         var context_actions = this.props.context_actions;
+        var brand = <a href="/">{portal.portal_title}</a>;
         return (
             <div id="navbar" className="navbar navbar-fixed-top navbar-inverse">
                 <div className="container">
-                    <Navbar brand={portal.portal_title} brandlink="/" noClasses={true} data-target="main-nav">
-                        <GlobalSections global_sections={portal.global_sections} section={section} />
-                        <UserActions {...this.props} />
-                        {context_actions ? <ContextActions {...this.props} /> : null}
-                        <Search {...this.props} />
+                    <Navbar brand={brand} toggleNavKey={0} bsStyle="" bsClass="" data-target="main-nav">
+                        <CollapsableNav eventKey={0}>
+                            <GlobalSections global_sections={portal.global_sections} section={section} />
+                            <UserActions {...this.props} />
+                            {context_actions ? <ContextActions {...this.props} /> : null}
+                            <Search {...this.props} />
+                        </CollapsableNav>
                     </Navbar>
                 </div>
                 {this.state.testWarning ?
@@ -89,27 +95,22 @@ var GlobalSections = React.createClass({
         var actions = this.props.global_sections.map(function (action) {
             var subactions;
             if (action.children) {
-                // Has dropdown menu; render it into subactions var
-                subactions = action.children.map(function (action) {
-                    return (
-                        <NavItem href={action.url || ''} key={action.id}>
-                            {action.title}
-                        </NavItem>
-                    );
-                });
+                return (
+                    <DropdownButton eventKey={action.id} title={action.title}>
+                        {action.children.map(function (action) {
+                            return (
+                                <MenuItem href={action.url || ''} eventKey={action.id}>
+                                    {action.title}
+                                </MenuItem>
+                            );
+                        })}
+                    </DropdownButton>
+                );
+            } else {
+                <NavItem eventKey={action.id} href={action.url || ''}>action.title</NavItem>
             }
-            return (
-                <NavItem dropdown={action.hasOwnProperty('children')} key={action.id} href={action.url || ''}>
-                    {action.title}
-                    {action.children ?
-                        <Nav navbar={true} dropdown={true}>
-                            {subactions}
-                        </Nav>
-                    : null}
-                </NavItem>
-            );
         });
-        return <Nav navbar={true} bsStyle="navbar-nav" activeKey={1}>{actions}</Nav>;
+        return <Nav navbar>{actions}</Nav>;
     }
 });
 
@@ -117,22 +118,20 @@ var ContextActions = React.createClass({
     render: function() {
         var actions = this.props.context_actions.map(function(action) {
             return (
-                <NavItem href={action.href} key={action.name}>
+                <MenuItem href={action.href} eventKey={action.name}>
                     <i className="icon icon-pencil"></i> {action.title}
-                </NavItem>
+                </MenuItem>
             );
         });
         if (this.props.context_actions.length > 1) {
+            var contextTitle = <i className="icon icon-gear"></i>;
             actions = (
-                <NavItem dropdown={true}>
-                    <i className="icon icon-gear"></i>
-                    <Nav navbar={true} dropdown={true}>
-                        {actions}
-                    </Nav>
-                </NavItem>
+                <DropdownButton title={contextTitle} eventKey="context">
+                    {actions}
+                </DropdownButton>
             );
         }
-        return <Nav bsStyle="navbar-nav" navbar={true} right={true} id="edit-actions">{actions}</Nav>;
+        return <Nav navbar right id="edit-actions">{actions}</Nav>;
     }
 });
 
@@ -158,27 +157,24 @@ var UserActions = React.createClass({
         var disabled = !this.props.loadingComplete;
         if (!(session && session['auth.userid'])) {
             return (
-                <Nav bsStyle="navbar-nav" navbar={true} right={true} id="user-actions">
+                <Nav navbar right id="user-actions">
                     <NavItem data-trigger="login" disabled={disabled}>Sign in</NavItem>
                 </Nav>
             );
         }
         var actions = this.props.user_actions.map(function (action) {
             return (
-                <NavItem href={action.url || ''} key={action.id} data-bypass={action.bypass} data-trigger={action.trigger}>
+                <MenuItem href={action.url || ''} eventKey={action.id} data-bypass={action.bypass} data-trigger={action.trigger}>
                     {action.title}
-                </NavItem>
+                </MenuItem>
             );
         });
         var fullname = (session.user_properties && session.user_properties.title) || 'unknown';
         return (
-            <Nav bsStyle="navbar-nav" navbar={true} right={true} id="user-actions">
-                <NavItem dropdown={true}>
-                    {fullname}
-                    <Nav navbar={true} dropdown={true}>
-                        {actions}
-                    </Nav>
-                </NavItem>
+            <Nav navbar right id="user-actions">
+                <DropdownButton title={fullname} eventKey="user">
+                    {actions}
+                </DropdownButton>
             </Nav>
         );
     }
