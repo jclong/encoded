@@ -289,7 +289,7 @@
             "title": "Nucleic Acid Term Name",
             "type": "string"
         }
-    }
+    },
         "boost_values": {
         "accession": 1.0,
         "alternate_accessions": 1.0,
