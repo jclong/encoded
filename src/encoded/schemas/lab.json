@@ -116,7 +116,7 @@
             "description": "An external resource with additional information about the lab.",
             "type": "string",
             "format": "uri"
-        }
+        },
         
         "boost_values": {
         "award.title": 1.0,
