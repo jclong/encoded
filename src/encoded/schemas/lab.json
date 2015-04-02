@@ -119,9 +119,9 @@
         }
     },  
         "boost_values": {
-        "award.title": 1.0,
-        "award.project": 1.0,
+        "pi": 1.0,
         "name":1.0,
+        "awards":1.0,
         "institute_name": 1.0,
         "institute_label": 1.0,
         "title":1.0
