@@ -118,7 +118,7 @@
             "format": "uri"
         }
     },  
-        "boost_values": {
+    "boost_values": {
         "pi": 1.0,
         "name":1.0,
         "awards":1.0,
