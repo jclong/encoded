@@ -92,14 +92,14 @@ var GlobalSections = React.createClass({
                 // Has dropdown menu; render it into subactions var
                 subactions = action.children.map(function (action) {
                     return (
-                        <NavItem href={action.url || ''} key={action.id}>
+                        <NavItem href={action.url || ''} key={action.id} nodeId={action.id}>
                             {action.title}
                         </NavItem>
                     );
                 });
             }
             return (
-                <NavItem dropdown={action.hasOwnProperty('children')} key={action.id} href={action.url || ''}>
+                <NavItem dropdown={action.hasOwnProperty('children')} key={action.id} nodeId={action.id} href={action.url || ''}>
                     {action.title}
                     {action.children ?
                         <Nav navbar={true} dropdown={true}>
@@ -117,14 +117,14 @@ var ContextActions = React.createClass({
     render: function() {
         var actions = this.props.context_actions.map(function(action) {
             return (
-                <NavItem href={action.href} key={action.name}>
+                <NavItem href={action.href} key={action.name} nodeId={action.name}>
                     <i className="icon icon-pencil"></i> {action.title}
                 </NavItem>
             );
         });
         if (this.props.context_actions.length > 1) {
             actions = (
-                <NavItem dropdown={true}>
+                <NavItem dropdown={true} nodeId="context">
                     <i className="icon icon-gear"></i>
                     <Nav navbar={true} dropdown={true}>
                         {actions}
@@ -159,13 +159,13 @@ var UserActions = React.createClass({
         if (!(session && session['auth.userid'])) {
             return (
                 <Nav bsStyle="navbar-nav" navbar={true} right={true} id="user-actions">
-                    <NavItem data-trigger="login" disabled={disabled}>Sign in</NavItem>
+                    <NavItem data-trigger="login" disabled={disabled} nodeId="signin">Sign in</NavItem>
                 </Nav>
             );
         }
         var actions = this.props.user_actions.map(function (action) {
             return (
-                <NavItem href={action.url || ''} key={action.id} data-bypass={action.bypass} data-trigger={action.trigger}>
+                <NavItem href={action.url || ''} key={action.id} nodeId={action.id} data-bypass={action.bypass} data-trigger={action.trigger}>
                     {action.title}
                 </NavItem>
             );
@@ -173,7 +173,7 @@ var UserActions = React.createClass({
         var fullname = (session.user_properties && session.user_properties.title) || 'unknown';
         return (
             <Nav bsStyle="navbar-nav" navbar={true} right={true} id="user-actions">
-                <NavItem dropdown={true}>
+                <NavItem dropdown={true} nodeId="fullname">
                     {fullname}
                     <Nav navbar={true} dropdown={true}>
                         {actions}

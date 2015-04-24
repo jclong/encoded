@@ -3,7 +3,7 @@
 
 var React = require("react");
 var classSet = require("react/lib/cx");
-var BootstrapMixin = require("./BootstrapMixin")["default"];
+var BootstrapMixin = require("./BootstrapMixin");
 
 var NavItem = React.createClass({displayName: 'NavItem',
     mixins: [BootstrapMixin],
@@ -32,7 +32,7 @@ var NavItem = React.createClass({displayName: 'NavItem',
 
     // Call app with our React node ID if opening drop-down menu, or undefined if closing
     setDropdownState: function (newState) {
-        this.context.onDropdownChange(newState ? this._rootNodeID : undefined);
+        this.context.onDropdownChange(newState ? this.props.nodeId : undefined);
     },
 
     render: function () {
@@ -40,7 +40,7 @@ var NavItem = React.createClass({displayName: 'NavItem',
             'active': this.props.active,
             'disabled': this.props.disabled,
             'dropdown': this.props.dropdown,
-            'open': this.context.dropdownComponent === this._rootNodeID
+            'open': this.context.dropdownComponent === this.props.nodeId
         };
 
         var anchorClass = this.props.dropdown ? 'dropdown-toggle' : '';
@@ -63,7 +63,7 @@ var NavItem = React.createClass({displayName: 'NavItem',
         if (this.props.dropdown) {
             e.preventDefault();
             e.stopPropagation();
-            this.setDropdownState(this.context.dropdownComponent !== this._rootNodeID);
+            this.setDropdownState(this.context.dropdownComponent !== this.props.nodeId);
         }
     }
 });
