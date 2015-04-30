@@ -33,7 +33,6 @@ def base_library(testapp, lab, award, base_biosample):
     item = {
         'award': award['uuid'],
         'lab': lab['uuid'],
-        'nucleic_acid_term_id': 'SO:0000352',
         'nucleic_acid_term_name': 'DNA',
         'biosample': base_biosample['uuid']
     }

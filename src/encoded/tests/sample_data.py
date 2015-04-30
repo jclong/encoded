@@ -134,7 +134,6 @@ LIBRARIES = [
     {
         'uuid': 'a95b00ea-fc13-42ee-a322-e36793f1325d',
         'accession': 'ENCLB000TST',
-        'nucleic_acid_term_id': 'SO:0000352',
         'nucleic_acid_term_name': 'DNA',
         'biosample': 'ENCBS000TST',
         'status': 'released',
