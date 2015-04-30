@@ -77,3 +77,11 @@ def test_library_fragmentation(app, library_3):
     value = migrator.upgrade('library', library_3, target_version='4')
     assert value['schema_version'] == '4'
     assert value['fragmentation_method'] == 'shearing (Covaris generic)'
+
+
+def test_library_calc_id(app, library_3):
+    migrator = app.registry['migrator']
+    value = migrator.upgrade('library', library_3, target_version='4')
+    assert value['schema_version'] == '4'
+    assert 'nucleic_acid_term_id' not in value
+    assert 'depleted_in_term_id' not in value

@@ -21,9 +21,16 @@ def library_0_3(value, system):
 def library_3_4(value, system):
     # http://redmine.encodedcc.org/issues/2784
     # http://redmine.encodedcc.org/issues/2560
+    # http://redmine.encodedcc.org/issues/2766
 
     if 'paired_ended' in value:
         del value['paired_ended']
+
+    if 'nucleic_acid_term_id' in value:
+        del value['nucleic_acid_term_id']
+
+    if 'depleted_in_term_id' in value:
+        del value['depleted_in_term_id']
 
     covaris_generic = [
         'A combination of random priming and covaris shearing',
