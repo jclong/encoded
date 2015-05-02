@@ -79,6 +79,7 @@ var AuditMixin = audit.AuditMixin;
                         <div className="data-row">
                             {result.description}
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -233,6 +234,7 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns['source.title']['title']}</strong>: {result.source.title}<br />
                             <strong>{columns.product_id.title}/{columns.lot_id.title}</strong>: {result.product_id} / {result.lot_id}<br />
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -332,6 +334,7 @@ var AuditMixin = audit.AuditMixin;
                             : null}
                             <div><strong>{columns['source.title']['title']}</strong>: {result.source.title}</div>
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -437,6 +440,7 @@ var AuditMixin = audit.AuditMixin;
                             <div><strong>{columns['lab.title']['title']}</strong>: {result.lab.title}</div>
                             <div><strong>{columns['award.project']['title']}</strong>: {result.award.project}</div>
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -472,6 +476,7 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns['lab.title']['title']}</strong>: {result.lab.title}<br />
                             <strong>{columns['award.project']['title']}</strong>: {result.award.project}
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -505,6 +510,7 @@ var AuditMixin = audit.AuditMixin;
                                 <DbxrefList values={result.dbxref} target_gene={result.gene_name} />
                                 : <em> None submitted</em> }
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -533,6 +539,7 @@ var AuditMixin = audit.AuditMixin;
                         <div className="data-row">
                             <Attachment context={result} />
                         </div>
+                        <Highlights highlights={result.highlight} />
                     </div>
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
@@ -804,6 +811,30 @@ var AuditMixin = audit.AuditMixin;
                 </Modal>
               );
           }
+    });
+
+    var Highlights = search.Highlights = React.createClass({
+        render: function() {
+            var highlights = this.props.highlights;
+            if (highlights && Object.keys(highlights).length) {
+                return (
+                    <dl className="highlights">
+                        <h4>Matching items</h4>
+                        {Object.keys(highlights).map(function(key) {
+                            return (
+                                <div>
+                                    <dt>{key}</dt>
+                                    {highlights[key].map(function(match) {
+                                        return <dd dangerouslySetInnerHTML={{__html: match}} />;
+                                    })}
+                                </div>
+                            );
+                        })}
+                    </dl>
+                );
+            }
+            return null;
+        }
     });
 
     var ResultTable = search.ResultTable = React.createClass({

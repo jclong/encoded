@@ -6,6 +6,7 @@ var search = require('./search');
 
 var DbxrefList = dbxref.DbxrefList;
 var Dbxref = dbxref.Dbxref;
+var Highlights = search.Highlights;
 
 
 var Publication = module.exports.Panel = React.createClass({
@@ -224,6 +225,7 @@ var Listing = React.createClass({
                         </div>
                     : null}
                 </div>
+                <Highlights highlights={result.highlight} />
             </li>
         );
     }

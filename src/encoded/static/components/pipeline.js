@@ -15,6 +15,7 @@ var JsonGraph = graph.JsonGraph;
 var AuditIndicators = audit.AuditIndicators;
 var AuditDetail = audit.AuditDetail;
 var AuditMixin = audit.AuditMixin;
+var Highlights = search.Highlights;
 
 
 var DbxrefList = dbxref.DbxrefList;
@@ -337,6 +338,7 @@ var Listing = React.createClass({
                             {result['title']}
                         </a>
                     </div>
+                    <Highlights highlights={result.highlight} />
                 </div>
                 <AuditDetail audits={result.audit} id={this.props.context['@id']} />
             </li>

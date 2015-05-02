@@ -11,6 +11,7 @@ var _ = require('underscore');
 var PipelineTable = pipeline.PipelineTable;
 var FetchedItems = fetched.FetchedItems;
 var PubReferenceList = reference.PubReferenceList;
+var Highlights = search.Highlights;
 
 
 var Software = module.exports.Software = React.createClass({
@@ -161,8 +162,8 @@ var Listing = React.createClass({
                                 {context.software_type.join(", ")}
                             </div>
                         : null}
-
                     </div>
+                    <Highlights highlights={context.highlight} />
             </li>
         );
     }
