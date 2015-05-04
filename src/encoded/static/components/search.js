@@ -79,8 +79,8 @@ var AuditMixin = audit.AuditMixin;
                         <div className="data-row">
                             {result.description}
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -234,8 +234,8 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns['source.title']['title']}</strong>: {result.source.title}<br />
                             <strong>{columns.product_id.title}/{columns.lot_id.title}</strong>: {result.product_id} / {result.lot_id}<br />
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -334,8 +334,8 @@ var AuditMixin = audit.AuditMixin;
                             : null}
                             <div><strong>{columns['source.title']['title']}</strong>: {result.source.title}</div>
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -440,8 +440,8 @@ var AuditMixin = audit.AuditMixin;
                             <div><strong>{columns['lab.title']['title']}</strong>: {result.lab.title}</div>
                             <div><strong>{columns['award.project']['title']}</strong>: {result.award.project}</div>
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -476,8 +476,8 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns['lab.title']['title']}</strong>: {result.lab.title}<br />
                             <strong>{columns['award.project']['title']}</strong>: {result.award.project}
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -510,8 +510,8 @@ var AuditMixin = audit.AuditMixin;
                                 <DbxrefList values={result.dbxref} target_gene={result.gene_name} />
                                 : <em> None submitted</em> }
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -539,8 +539,8 @@ var AuditMixin = audit.AuditMixin;
                         <div className="data-row">
                             <Attachment context={result} />
                         </div>
-                        <Highlights highlights={result.highlight} />
                     </div>
+                    <Highlights highlights={result.highlight} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -678,9 +678,9 @@ var AuditMixin = audit.AuditMixin;
                         : null}
                         {(terms.length > 5 && !moreTermSelected) ?
                             <label className="pull-right">
-                                    <small>
-                                        <button type="button" className={seeMoreClass} data-toggle="collapse" data-target={'#'+termID} onClick={this.handleClick} />
-                                    </small>
+                                <small>
+                                    <button type="button" className={seeMoreClass} data-toggle="collapse" data-target={'#'+termID} onClick={this.handleClick} />
+                                </small>
                             </label>
                         : null}
                     </ul>
@@ -814,22 +814,41 @@ var AuditMixin = audit.AuditMixin;
     });
 
     var Highlights = search.Highlights = React.createClass({
+        getInitialState: function() {
+            return {expanded: false};
+        },
+
+        handleClick: function() {
+            this.setState({expanded: !this.state.expanded});
+        },
+
         render: function() {
             var highlights = this.props.highlights;
+            var seeMoreClass = 'btn btn-link' + (this.state.expanded ? '' : ' collapsed');
+
             if (highlights && Object.keys(highlights).length) {
                 return (
                     <dl className="highlights">
-                        <h4>Matching items</h4>
-                        {Object.keys(highlights).map(function(key) {
-                            return (
-                                <div>
-                                    <dt>{key}</dt>
-                                    {highlights[key].map(function(match) {
-                                        return <dd dangerouslySetInnerHTML={{__html: match}} />;
-                                    })}
-                                </div>
-                            );
-                        })}
+                        <h4>Matching properties</h4>
+                        {Object.keys(highlights).map(function(key, i) {
+                            if (this.state.expanded || i === 0) {
+                                return (
+                                    <div>
+                                        <dt>{key}</dt>
+                                        <dd dangerouslySetInnerHTML={{__html: highlights[key].join(', ')}} />
+                                    </div>
+                                );
+                            } else {
+                                return null;
+                            }
+                        }, this)}
+                        {(Object.keys(highlights).length > 1) ?
+                            <label>
+                                <small>
+                                    <button type="button" className={seeMoreClass} onClick={this.handleClick} />
+                                </small>
+                            </label>
+                        : null}
                     </dl>
                 );
             }

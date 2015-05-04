@@ -66,24 +66,27 @@
     max-width: 200px;
 }
 
-.facet-list button {
-    padding: 0;
-}
+.facet-list,
+.highlights {
+    button {
+        padding: 0;
 
-.facet-list button.btn.collapsed:before {
-    content:'+ See more...' ;
-    text-decoration: none;
-    font-size: small;
-}
+        &.btn.collapsed:before {
+            content:'+ See more...' ;
+            text-decoration: none;
+            font-size: small;
+        }
 
-.facet-list button.btn:before {
-    content:'- See fewer';
-    text-decoration: none;
-    font-size: small;
-}
+        &.btn:before {
+            content:'- See fewer';
+            text-decoration: none;
+            font-size: small;
+        }
+    }
 
-.facet-list label {
-    margin: 0;
+    label {
+        margin: 0;
+    }
 }
 
 .accession {
@@ -274,9 +277,30 @@ span.bar {
 
 // Styles for search result highlights
 .highlights {
-    margin: 0 25px;
+    margin: 0 0 0 25px;
+    padding: 5px 10px;
+    border: 1px solid #d0d0d0;
+    background-color: #f8f8f8;
+    @include border-radius(4px);
 
     h4 {
+        margin: 0 0 5px;
         font-size: 14px;
+    }
+
+    dt {
+        display: inline;
+
+        &:after {
+            content: ': ';
+        }
+    }
+
+    dd {
+        display: inline;
+    }
+
+    em {
+        color: #00bb22;
     }
 }
