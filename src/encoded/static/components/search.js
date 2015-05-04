@@ -825,31 +825,34 @@ var AuditMixin = audit.AuditMixin;
         render: function() {
             var highlights = this.props.highlights;
             var seeMoreClass = 'btn btn-link' + (this.state.expanded ? '' : ' collapsed');
+            var ariaLabel = "Display " + (this.state.expanded ? "fewer" : "more") + " matching properties";
 
             if (highlights && Object.keys(highlights).length) {
                 return (
-                    <dl className="highlights">
-                        <h4>Matching properties</h4>
-                        {Object.keys(highlights).map(function(key, i) {
-                            if (this.state.expanded || i === 0) {
-                                return (
-                                    <div>
-                                        <dt>{key}</dt>
-                                        <dd dangerouslySetInnerHTML={{__html: highlights[key].join(', ')}} />
-                                    </div>
-                                );
-                            } else {
-                                return null;
-                            }
-                        }, this)}
+                    <div>
+                        <dl className="highlights">
+                            <h4>Matching properties</h4>
+                            {Object.keys(highlights).map(function(key, i) {
+                                if (this.state.expanded || i === 0) {
+                                    return (
+                                        <div>
+                                            <dt>{key}</dt>
+                                            <dd dangerouslySetInnerHTML={{__html: highlights[key].join(', ')}} />
+                                        </div>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            }, this)}
+                        </dl>
                         {(Object.keys(highlights).length > 1) ?
                             <label>
                                 <small>
-                                    <button type="button" className={seeMoreClass} onClick={this.handleClick} />
+                                    <button type="button" className={seeMoreClass} onClick={this.handleClick} aria-label={ariaLabel} aria-expanded={this.state.expanded} />
                                 </small>
                             </label>
                         : null}
-                    </dl>
+                    </div>
                 );
             }
             return null;
