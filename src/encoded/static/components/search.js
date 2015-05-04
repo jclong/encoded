@@ -829,8 +829,8 @@ var AuditMixin = audit.AuditMixin;
 
             if (highlights && Object.keys(highlights).length) {
                 return (
-                    <div>
-                        <dl className="highlights">
+                    <div className="highlights">
+                        <dl>
                             <h4>Matching properties</h4>
                             {Object.keys(highlights).map(function(key, i) {
                                 if (this.state.expanded || i === 0) {

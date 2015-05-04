@@ -277,7 +277,7 @@ span.bar {
 
 // Styles for search result highlights
 .highlights {
-    margin: 0 0 0 25px;
+    margin: 0 0 10px 25px;
     padding: 5px 10px;
     border: 1px solid #d0d0d0;
     background-color: #f8f8f8;
@@ -288,16 +288,20 @@ span.bar {
         font-size: 14px;
     }
 
-    dt {
-        display: inline;
+    dl {
+        margin: 0;
 
-        &:after {
-            content: ': ';
+        dt {
+            display: inline;
+
+            &:after {
+                content: ': ';
+            }
         }
-    }
 
-    dd {
-        display: inline;
+        dd {
+            display: inline;
+        }
     }
 
     em {
