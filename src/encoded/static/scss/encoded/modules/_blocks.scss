@@ -323,6 +323,10 @@ img.fig-align-center {
     @include border-radius(0);
     border: 4px solid #fff;
 
+    @media screen and (min-width: $screen-sm-min) {
+        display: table-row;
+    }
+
     // Only react to hover if there's an href
     .img-link &:hover {
         border-color: #0a253d;
@@ -335,10 +339,11 @@ img.fig-align-center {
     .caption {
         .col-md-12 & {
             @media screen and (min-width: $screen-sm-min) {
-                float: right;
-                width: 33.33%;
+                display: table-cell;
+                width: 50%;
                 padding: 0 20px !important;
                 line-height: 1.6;
+                vertical-align: middle;
             }
         }
     }
@@ -348,8 +353,8 @@ img.fig-align-center {
 
         .col-md-12 & {
             @media screen and (min-width: $screen-sm-min) {
-                float: left;
-                width: 66.66%;
+                display: table-cell;
+                width: 50%;
             }
         }
     }
