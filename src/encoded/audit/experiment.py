@@ -49,12 +49,6 @@ non_seq_assays = [
     '5C',
     ]
 
-paired_end_assays = [
-    'RNA-PET',
-    'ChIA-PET',
-    'DNA-PET',
-    ]
-
 
 @audit_checker('experiment', frame='object')
 def audit_experiment_release_date(value, system):
@@ -65,6 +59,18 @@ def audit_experiment_release_date(value, system):
     if value['status'] == 'released' and 'date_released' not in value:
         detail = 'Experiment {} is released and requires a value in date_released'.format(value['accession'])
         raise AuditFailure('missing date_released', detail, level='DCC_ACTION')
+
+
+@audit_checker('experiment', frame=['replicates'])
+def audit_experiment_replicated(value, system):
+    '''
+    Experiments in ready for review or release ready state should be replicated. If not,
+    wranglers should check with lab as to why before release.
+    '''
+    if value['status'] in ['ready for review', 'release ready']:
+        if len(value['replicates']) <= 1:
+            detail = 'Experiment {} is unreplicated, at least 2 replicates is typically expected before release'.format(value['accession'])
+            raise AuditFailure('unreplicated experiment', detail, level='WARNING')
 
 
 @audit_checker('experiment', frame='object')
@@ -303,37 +309,6 @@ def audit_experiment_ChIP_control(value, system):
             raise AuditFailure('missing input control', detail, level='NOT_COMPLIANT')
 
 
-@audit_checker('experiment', frame=['replicates'], condition=rfa('ENCODE3', 'FlyWormChIP'))
-def audit_experiment_readlength(value, system):
-    '''
-    All ENCODE 3 experiments of sequencing type should specify their read_length
-    Read-lengths should likely match across replicates
-    Other rfas likely should have warning
-    '''
-
-    if value['status'] in ['deleted', 'replaced']:
-        return
-
-    if value.get('assay_term_name') not in seq_assays:
-        return
-
-    read_lengths = []
-
-    for i in range(len(value['replicates'])):
-        rep = value['replicates'][i]
-        read_length = rep.get('read_length')
-        read_lengths.append(read_length)
-
-        if read_length is None:
-            detail = 'Replicate {} requires a value for read_length'.format(rep['uuid'])
-            yield AuditFailure('missing read_length', detail, level='ERROR')
-
-    if len(set(read_lengths)) > 1:
-        list_of_lens = str(read_lengths)
-        detail = '{} has mixed values for read_length between replicates: {}'.format(value['accession'], list_of_lens)
-        yield AuditFailure('mismatched read_length', detail, level='WARNING')
-
-
 @audit_checker('experiment', frame=['files','files.platform'])
 def audit_experiment_platform(value, system):
     '''
@@ -475,59 +450,6 @@ def audit_experiment_biosample_term(value, system):
                 bs_name
                 )
             yield AuditFailure('mismatched biosample_term_name', detail, level='ERROR')
-
-
-@audit_checker('experiment', frame='embedded')
-def audit_experiment_paired_end(value, system):
-    '''
-    Libraries and replicates of certain assays should be paired end.
-    Libraries and replicates of ignore_assays are not applicable for paired_end.
-    All other libraries and replicates should have a value for paired_end.
-    If two replicates do not match, that is a warning.
-    '''
-
-    if value['status'] in ['deleted', 'replaced']:
-        return
-
-    term_name = value.get('assay_term_name')
-
-    if (term_name in non_seq_assays) or (term_name is None):
-        return
-
-    reps_list = []
-
-    for rep in value['replicates']:
-
-        rep_paired_ended = rep.get('paired_ended')
-        if rep_paired_ended is not None:
-            reps_list.append(rep_paired_ended)
-
-        if rep_paired_ended is None:
-            detail = 'Replicate {} is missing value for paired_ended'.format(rep['uuid'])
-            yield AuditFailure('missing replicate.paired_ended', detail, level='ERROR')
-
-        if (rep_paired_ended is False) and (term_name in paired_end_assays):
-            detail = '{} experiments require paired end replicates. {}.paired_ended is False'.format(
-                term_name,
-                rep['uuid']
-                )
-            yield AuditFailure('paired end required for assay', detail, level='ERROR')
-
-        if 'library' not in rep:
-            continue
-
-        lib = rep['library']
-        lib_paired_ended = lib.get('paired_ended')
-
-        if (lib_paired_ended is False) and (term_name in paired_end_assays):
-            detail = '{} experiments require paired end libraries. {}.paired_ended is False'.format(
-                term_name,
-                lib['accession'])
-            yield AuditFailure('paired end required for assay', detail, level='ERROR')
-
-        if lib_paired_ended is None and value['award']['rfa'] in ['ENCODE3']:
-            detail = '{} is missing value for paired_ended'.format(lib['accession'])
-            yield AuditFailure('missing library.paired_ended', detail, level='WARNING')
 
 
 @audit_checker(

@@ -11,6 +11,7 @@ var audit = require('./audit');
 var fetched = require('./fetched');
 var AuditMixin = audit.AuditMixin;
 var pipeline = require('./pipeline');
+var reference = require('./reference');
 
 var DbxrefList = dbxref.DbxrefList;
 var FileTable = dataset.FileTable;
@@ -23,6 +24,7 @@ var AuditIndicators = audit.AuditIndicators;
 var AuditDetail = audit.AuditDetail;
 var Graph = graph.Graph;
 var JsonGraph = graph.JsonGraph;
+var PubReferenceList = reference.PubReferenceList;
 
 var Panel = function (props) {
     // XXX not all panels have the same markup
@@ -329,10 +331,12 @@ var Experiment = module.exports.Experiment = React.createClass({
                             </div>
                         : null}
 
-                        {context.references.length ?
+                        {context.references && context.references.length ?
                             <div data-test="references">
-                                <dt>References</dt>
-                                <dd><DbxrefList values={context.references} className="horizontal-list"/></dd>
+                                <dt>Publications</dt>
+                                <dd>
+                                    <PubReferenceList values={context.references} />
+                                </dd>
                             </div>
                         : null}
 
@@ -625,6 +629,7 @@ var assembleGraph = module.exports.assembleGraph = function(context, infoNodeId,
     var allFiles = {}; // All files' accessions as keys
     var allReplicates = {}; // All file's replicates as keys; each key references an array of files
     var allPipelines = {}; // List of all pipelines indexed by step @id
+    var allContributing = {}; // List of all contributing files
     var stepExists = false; // True if at least one file has an analysis_step
     var fileOutsideReplicate = false; // True if at least one file exists outside a replicate
     var abortGraph = false; // True if graph shouldn't be drawn
@@ -703,6 +708,7 @@ var assembleGraph = module.exports.assembleGraph = function(context, infoNodeId,
     // Don't worry about files they derive from; they're not included in the graph.
     if (context.contributing_files && context.contributing_files.length) {
         context.contributing_files.forEach(function(file) {
+            allContributing[file.accession] = file;
             if (derivedFromFiles[file.accession]) {
                 allFiles[file.accession] = file;
             }
@@ -720,23 +726,11 @@ var assembleGraph = module.exports.assembleGraph = function(context, infoNodeId,
                 if (allReplicates[derivedFromFile.replicate.biological_replicate_number]) {
                     allReplicates[derivedFromFile.replicate.biological_replicate_number].forEach(function(file) {
                         file.removed = true;
-
-                        // Remember it's removed from the derived_from file objects too
-                        if (derivedFromFiles[file.accession]) {
-                            derivedFromFiles[file.accession].removed = true;
-                        }
                     });
-                } else {
-                    // Derived-from file is in a replicate, but not seen in files array;
-                    // just remove it from derivedFromFiles.
-                    derivedFromFile.removed = true;
                 }
 
                 // Indicate that this replicate is not to be rendered
                 allReplicates[derivedFromFile.replicate.biological_replicate_number] = [];
-
-                // Mark this file as removed
-                derivedFromFile.removed = true;
             } else {
                 // Missing derived-from file not in a replicate; don't draw any graph
                 abortGraph = abortGraph || true;
@@ -756,9 +750,9 @@ var assembleGraph = module.exports.assembleGraph = function(context, infoNodeId,
         var file = allFiles[fileAccession];
 
         // A file derives from a file that's been removed from the graph
-        if (file.derived_from && !file.removed) {
+        if (file.derived_from && !file.removed && !(file.accession in allContributing)) {
             abortGraph = abortGraph || _(file.derived_from).any(function(derivedFromFile) {
-                return derivedFromFile.removed;
+                return !(derivedFromFile.accession in allFiles);
             });
         }
 
@@ -956,7 +950,7 @@ var FileDetailView = function(node) {
             var accessionEnd = selectedFile.dataset.indexOf('/', accessionStart) - accessionStart;
             contributingAccession = selectedFile.dataset.substr(accessionStart, accessionEnd);
         }
-        var dateString = !!selectedFile.date_created && moment(selectedFile.date_created).format('YYYY-MM-DD');
+        var dateString = !!selectedFile.date_created && moment.utc(selectedFile.date_created).format('YYYY-MM-DD');
         return (
             <dl className="key-value">
                 {selectedFile.file_format ?
