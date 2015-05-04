@@ -837,7 +837,7 @@ var AuditMixin = audit.AuditMixin;
                                 var title = titles && titles[key] && titles[key]['title'];
                                 if (this.state.expanded || i === 0) {
                                     return (
-                                        <div>
+                                        <div key={i}>
                                             <dt>{title ? title : key}</dt>
                                             <dd dangerouslySetInnerHTML={{__html: highlights[key].join(', ')}} />
                                         </div>
