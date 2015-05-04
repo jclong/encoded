@@ -80,7 +80,7 @@ var AuditMixin = audit.AuditMixin;
                             {result.description}
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} title={this.props.columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -235,7 +235,7 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns.product_id.title}/{columns.lot_id.title}</strong>: {result.product_id} / {result.lot_id}<br />
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -335,7 +335,7 @@ var AuditMixin = audit.AuditMixin;
                             <div><strong>{columns['source.title']['title']}</strong>: {result.source.title}</div>
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -441,7 +441,7 @@ var AuditMixin = audit.AuditMixin;
                             <div><strong>{columns['award.project']['title']}</strong>: {result.award.project}</div>
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -477,7 +477,7 @@ var AuditMixin = audit.AuditMixin;
                             <strong>{columns['award.project']['title']}</strong>: {result.award.project}
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -511,7 +511,7 @@ var AuditMixin = audit.AuditMixin;
                                 : <em> None submitted</em> }
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -540,7 +540,7 @@ var AuditMixin = audit.AuditMixin;
                             <Attachment context={result} />
                         </div>
                     </div>
-                    <Highlights highlights={result.highlight} />
+                    <Highlights highlights={result.highlight} titles={this.props.columns} />
                     <AuditDetail audits={result.audit} id={this.props.context['@id']} />
                 </li>
             );
@@ -826,6 +826,7 @@ var AuditMixin = audit.AuditMixin;
             var highlights = this.props.highlights;
             var seeMoreClass = 'btn btn-link' + (this.state.expanded ? '' : ' collapsed');
             var ariaLabel = "Display " + (this.state.expanded ? "fewer" : "more") + " matching properties";
+            var titles = this.props.titles;
 
             if (highlights && Object.keys(highlights).length) {
                 return (
@@ -833,10 +834,11 @@ var AuditMixin = audit.AuditMixin;
                         <dl>
                             <h4>Matching properties</h4>
                             {Object.keys(highlights).map(function(key, i) {
+                                var title = titles && titles[key] && titles[key]['title'];
                                 if (this.state.expanded || i === 0) {
                                     return (
                                         <div>
-                                            <dt>{key}</dt>
+                                            <dt>{title ? title : key}</dt>
                                             <dd dangerouslySetInnerHTML={{__html: highlights[key].join(', ')}} />
                                         </div>
                                     );

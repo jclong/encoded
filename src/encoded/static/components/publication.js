@@ -225,7 +225,7 @@ var Listing = React.createClass({
                         </div>
                     : null}
                 </div>
-                <Highlights highlights={result.highlight} />
+                <Highlights highlights={result.highlight} titles={columns} />
             </li>
         );
     }

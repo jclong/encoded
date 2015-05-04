@@ -339,7 +339,7 @@ var Listing = React.createClass({
                         </a>
                     </div>
                 </div>
-                <Highlights highlights={result.highlight} />
+                <Highlights highlights={result.highlight} titles={this.props.columns} />
                 <AuditDetail audits={result.audit} id={this.props.context['@id']} />
             </li>
         );
