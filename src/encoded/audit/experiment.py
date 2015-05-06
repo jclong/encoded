@@ -49,12 +49,6 @@ non_seq_assays = [
     '5C',
     ]
 
-paired_end_assays = [
-    'RNA-PET',
-    'ChIA-PET',
-    'DNA-PET',
-    ]
-
 
 @audit_checker('experiment', frame='object')
 def audit_experiment_release_date(value, system):
@@ -65,6 +59,18 @@ def audit_experiment_release_date(value, system):
     if value['status'] == 'released' and 'date_released' not in value:
         detail = 'Experiment {} is released and requires a value in date_released'.format(value['accession'])
         raise AuditFailure('missing date_released', detail, level='DCC_ACTION')
+
+
+@audit_checker('experiment', frame=['replicates'])
+def audit_experiment_replicated(value, system):
+    '''
+    Experiments in ready for review or release ready state should be replicated. If not,
+    wranglers should check with lab as to why before release.
+    '''
+    if value['status'] in ['ready for review', 'release ready']:
+        if len(value['replicates']) <= 1:
+            detail = 'Experiment {} is unreplicated, at least 2 replicates is typically expected before release'.format(value['accession'])
+            raise AuditFailure('unreplicated experiment', detail, level='WARNING')
 
 
 @audit_checker('experiment', frame='object')
