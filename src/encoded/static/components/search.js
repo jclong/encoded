@@ -863,39 +863,37 @@ var AuditMixin = audit.AuditMixin;
                             </div>
                             <div className="col-sm-7 col-md-8 col-lg-9">
                                 {context['notification'] === 'Success' ?
-                                    <h4>
-                                        Showing {results.length} of {total} {label}
-                                        {total > results.length && searchBase.indexOf('limit=all') === -1 ?
-                                            <span className="pull-right">
+                                    <div>
+                                        <h4>Showing {results.length} of {total} {label}</h4>
+                                        <div className="pull-right">
+                                            {total > results.length && searchBase.indexOf('limit=all') === -1 ?
                                                 <a rel="nofollow" className="btn btn-info btn-sm"
                                                      href={searchBase ? searchBase + '&limit=all' : '?limit=all'}
                                                      onClick={this.onFilter}>View All</a>
-                                            </span>
-                                        :
-                                            <span>
-                                                {results.length > 25 ?
-                                                    <span className="pull-right">
+                                            :
+                                                <span>
+                                                    {results.length > 25 ?
                                                         <a className="btn btn-info btn-sm"
                                                            href={trimmedSearchBase ? trimmedSearchBase : "/search/"}
                                                            onClick={this.onFilter}>View 25</a>
-                                                    </span>
-                                                : null}
-                                            </span>
-                                        }
+                                                    : null}
+                                                </span>
+                                            }
 
-                                        {context['batch_download'] ?
-                                            <span className="pull-right">
-                                                <BatchDownload context={context} />&nbsp;
-                                            </span>
-                                        : null}
+                                            {context['batch_download'] ?
+                                                <span>
+                                                    <BatchDownload context={context} />&nbsp;
+                                                </span>
+                                            : null}
 
-                                        {context['batch_hub'] ?
-                                            <span className="pull-right">
-                                                <a disabled={batch_hub_disabled} data-bypass="true" target="_blank" private-browsing="true" className="btn btn-info btn-sm"
-                                                   href={context['batch_hub']}>{batch_hub_disabled ? 'Filter to 500 to visualize' :'Visualize'}</a>&nbsp;
-                                            </span>
-                                        :null}
-                                    </h4>
+                                            {context['batch_hub'] ?
+                                                <span>
+                                                    <a disabled={batch_hub_disabled} data-bypass="true" target="_blank" private-browsing="true" className="btn btn-info btn-sm"
+                                                       href={context['batch_hub']}>{batch_hub_disabled ? 'Filter to 500 to visualize' :'Visualize'}</a>&nbsp;
+                                                </span>
+                                            : null}
+                                        </div>
+                                    </div>
                                 :
                                     <h4>{context['notification']}</h4>
                                 }
