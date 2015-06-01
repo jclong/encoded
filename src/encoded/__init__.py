@@ -65,9 +65,16 @@ def configure_engine(settings, test_setup=False):
         return None
     engine_opts = {}
     if engine_url.startswith('postgresql'):
+        if settings.get('indexer_worker'):
+            application_name = 'indexer_worker'
+        elif settings.get('indexer'):
+            application_name = 'indexer'
+        else:
+            application_name = 'app'
         engine_opts = dict(
             isolation_level='REPEATABLE READ',
             json_serializer=json_renderer.dumps,
+            connect_args={'application_name': application_name}
         )
     engine = engine_from_config(settings, 'sqlalchemy.', **engine_opts)
     if engine.url.drivername == 'postgresql':
@@ -99,17 +106,6 @@ def set_postgresql_statement_timeout(engine, timeout=20 * 1000):
         finally:
             cursor.close()
             dbapi_connection.commit()
-
-
-def load_sample_data(app):
-    from .tests.sample_data import load_sample
-    from webtest import TestApp
-    environ = {
-        'HTTP_ACCEPT': 'application/json',
-        'REMOTE_USER': 'IMPORT',
-    }
-    testapp = TestApp(app, environ)
-    load_sample(testapp)
 
 
 def load_workbook(app, workbook_filename, docsdir, test=False):
@@ -217,11 +213,7 @@ def main(global_config, **local_config):
 
     app = config.make_wsgi_app()
 
-    if asbool(settings.get('load_sample_data', False)):
-        load_sample_data(app)
-
     workbook_filename = settings.get('load_workbook', '')
-
     load_test_only = asbool(settings.get('load_test_only', False))
     docsdir = settings.get('load_docsdir', None)
     if docsdir is not None:
