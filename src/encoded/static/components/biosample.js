@@ -245,6 +245,13 @@ var Biosample = module.exports.Biosample = React.createClass({
                             </div>
                         : null}
 
+                        {context.references && context.references.length ?
+                            <div data-test="references">
+                                <dt>Publications</dt>
+                                <dd><PubReferenceList values={context.references} /></dd>
+                            </div>
+                        : null}
+
                         {context.note ?
                             <div data-test="note">
                                 <dt>Note</dt>
@@ -492,6 +499,13 @@ var HumanDonor = module.exports.HumanDonor = React.createClass({
                         <dd className="sentence-case">{context.ethnicity}</dd>
                     </div>
                 : null}
+
+                {context.references && context.references.length ?
+                    <div data-test="references">
+                        <dt>Publications</dt>
+                        <dd><PubReferenceList values={context.references} /></dd>
+                    </div>
+                : null}
             </dl>
         );
     }
@@ -590,6 +604,13 @@ var MouseDonor = module.exports.MouseDonor = React.createClass({
                             {biosample.donor.characterizations.map(Panel)}
                         </div>
                     </section>
+                : null}
+
+                {context.references && context.references.length ?
+                    <div data-test="references">
+                        <dt>Publications</dt>
+                        <dd><PubReferenceList values={context.references} /></dd>
+                    </div>
                 : null}
             </dl>
         );
@@ -707,6 +728,12 @@ var FlyWormDonor = module.exports.FlyDonor = React.createClass({
                     </section>
                 : null}
 
+                {context.references && context.references.length ?
+                    <div data-test="references">
+                        <dt>Publications</dt>
+                        <dd><PubReferenceList values={context.references} /></dd>
+                    </div>
+                : null}
             </div>
         );
     }
