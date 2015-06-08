@@ -359,6 +359,10 @@ def analysis_step(testapp, software_version):
         'software_versions': [
             software_version['@id'],
         ],
+        'version': {
+            'major': 1,
+            'minor': 0
+        }
     }
     return testapp.post_json('/analysis_step', item).json['@graph'][0]
 

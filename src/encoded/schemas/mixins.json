@@ -137,10 +137,31 @@
             }
         }
     },
+    "version": {
+        "version": {
+            "title": "Version",
+            "description": "The version of a particular pipeline or analysis step.",
+            "comment": "Increments with each change to the series of analysis.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "major": {
+                    "title": "Major version number",
+                    "description": "Changes in a major version indicate possible lack of comparability to previous versions.",
+                    "type": "integer"
+                },
+                "minor": {
+                    "title": "Minor version number",
+                    "description": "Changes in a minor version indicates the change in code or software versions does not affect the output.",
+                    "type": "integer"
+                }
+            }
+        }
+    },
     "attribution": {
         "lab": {
             "title": "Lab",
-             "description": "Lab associated with the submission.",
+            "description": "Lab associated with the submission.",
             "comment": "See lab.json for list of available identifiers.",
             "type": "string",
             "linkTo": "lab",

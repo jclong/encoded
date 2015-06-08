@@ -7,7 +7,11 @@
         "input_file_types": ["reads"],
         "output_file_types": ["alignments"],
         "status": "released",
-        "uuid": "ab7ec880-50ab-11e4-916c-0800200c9a66"
+        "uuid": "ab7ec880-50ab-11e4-916c-0800200c9a66",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "signal-test-step-1",
@@ -24,7 +28,11 @@
         ],
         "status": "released",
         "parents": ["ab7ec880-50ab-11e4-916c-0800200c9a66"],
-        "uuid": "c4a33ee0-50ab-11e4-916c-0800200c9a66"
+        "uuid": "c4a33ee0-50ab-11e4-916c-0800200c9a66",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "alignment-test-step-2",
@@ -34,7 +42,11 @@
         "input_file_types": ["reads"],
         "output_file_types": ["alignments"],
         "status": "released",
-        "uuid": "54ae7770-5ae8-11e4-8ed6-0800200c9a66"
+        "uuid": "54ae7770-5ae8-11e4-8ed6-0800200c9a66",
+        "version": {
+            "major": 2,
+            "minor": 0
+        }
     },
     {
         "name": "quantification-test-step-1",
@@ -45,7 +57,11 @@
         "output_file_types": ["gene quantifications"],
         "status": "released",
         "parents": ["54ae7770-5ae8-11e4-8ed6-0800200c9a66"],
-        "uuid": "1e418e10-5ae9-11e4-8ed6-0800200c9a66"
+        "uuid": "1e418e10-5ae9-11e4-8ed6-0800200c9a66",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "idr-test-step-1",
@@ -56,7 +72,11 @@
         "output_file_types": ["gene quantifications"],
         "status": "released",
         "parents": ["1e418e10-5ae9-11e4-8ed6-0800200c9a66"],
-        "uuid": "27c011e0-5aef-11e4-8ed6-0800200c9a66"
+        "uuid": "27c011e0-5aef-11e4-8ed6-0800200c9a66",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "encode-2-step",
@@ -82,7 +102,11 @@
         "output_file_types": ["optimal idr thresholded peaks"],
         "qa_stats_generated": ["NSC", "RSC", "SPOT"],
         "status": "released",
-        "uuid": "1b7bec83-dd21-4086-8673-2e08cf8f1c0f"
+        "uuid": "1b7bec83-dd21-4086-8673-2e08cf8f1c0f",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "idr-test-step-2",
@@ -95,7 +119,11 @@
         "qa_stats_generated": ["self-consistency ratio", "rescue ratio", "IDR plot"],
         "status": "released",
         "parents": ["1b7bec83-dd21-4086-8673-2e08cf8f1c0f"],
-        "uuid":  "11440ed3-1228-4430-aa5a-54cd408ff105"
+        "uuid":  "11440ed3-1228-4430-aa5a-54cd408ff105",
+        "version": {
+            "major": 1,
+            "minor": 2
+        }
     },
     {
         "name": "alignment-test-step-3",
@@ -107,7 +135,11 @@
         "input_file_types": ["reads"],
         "output_file_types": ["alignments"],
         "status": "released",
-        "uuid": "2dd0f890-b287-4147-84ad-edd6d3612772"
+        "uuid": "2dd0f890-b287-4147-84ad-edd6d3612772",
+        "version": {
+            "major": 1,
+            "minor": 3
+        }
     },
     {
         "name": "peak-calling-test-step-1",
@@ -120,7 +152,11 @@
         "output_file_types": ["peaks"],
         "status": "released",
         "parents": ["2dd0f890-b287-4147-84ad-edd6d3612772"],
-        "uuid": "8abc2031-9aab-46a3-b3a0-d800ae44656e"
+        "uuid": "8abc2031-9aab-46a3-b3a0-d800ae44656e",
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "prep-bismark",
@@ -129,7 +165,11 @@
         "input_file_types": ["genome reference"],
         "parents": [],
         "analysis_step_types": ["genome indexing"],
-        "software_versions": ["cf999bd4-0a93-453d-9e0e-69d1cfe6292d"]
+        "software_versions": ["cf999bd4-0a93-453d-9e0e-69d1cfe6292d"],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "mott-trim-align-bismark",
@@ -142,7 +182,11 @@
             "a86c9d15-deaf-4abd-8bce-bfa6595d70bb",
             "cf999bd4-0a93-453d-9e0e-69d1cfe6292d",
             "1b071b08-ef76-4a69-8f96-22408e2b380a"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "extract-bismark",
@@ -163,7 +207,11 @@
             "cf999bd4-0a93-453d-9e0e-69d1cfe6292d",
             "d44db1ed-3af1-4e3b-ae7a-b0fb1085877f",
             "913f5f5c-7e58-4dd2-9f6d-8fca92d0e91c"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "prep-star",
@@ -172,7 +220,11 @@
         "input_file_types": ["genome reference"],
         "parents": [],
         "analysis_step_types": ["genome indexing"],
-        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"]
+        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "prep-tophat",
@@ -184,7 +236,11 @@
             "8369c9b0-50ad-11e4-916c-0800200c9a66",
             "f21b7bbf-6178-4f1a-8c58-caeb6488bfc3",
             "9c51ea8f-ac73-4a25-8783-d31bce2d5aac"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "prep-rsem",
@@ -192,7 +248,11 @@
         "input_file_types": ["genome reference"],
         "uuid": "c0f339bb-e681-40af-b98b-5b4c12aa61ba",
         "analysis_step_types": ["genome indexing"],
-        "software_versions": ["08a31dbd-e957-4004-bf0c-8506388d9fed"]
+        "software_versions": ["08a31dbd-e957-4004-bf0c-8506388d9fed"],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "align-star",
@@ -207,7 +267,11 @@
         "software_versions": [
             "834e3145-b752-4486-a613-c0c625262051",
             "d44db1ed-3af1-4e3b-ae7a-b0fb1085877f"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "quant-rsem",
@@ -219,7 +283,11 @@
             "5cdff4b0-9b37-4fb1-a93e-664742dbe505"
         ],
         "analysis_step_types": ["signal generation"],
-        "software_versions": ["08a31dbd-e957-4004-bf0c-8506388d9fed"]
+        "software_versions": ["08a31dbd-e957-4004-bf0c-8506388d9fed"],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "align-tophat",
@@ -233,7 +301,11 @@
             "8369c9b0-50ad-11e4-916c-0800200c9a66",
             "f21b7bbf-6178-4f1a-8c58-caeb6488bfc3",
             "9c51ea8f-ac73-4a25-8783-d31bce2d5aac"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "bam-to-bigwig-tophat",
@@ -248,7 +320,11 @@
         ],
         "parents": ["dcdb54a7-3b13-4ac6-b36e-0e0669367350"],
         "analysis_step_types": ["file format conversion"],
-        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"]
+        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"],
+        "version": {
+            "major": 2,
+            "minor": 0
+        }
     },
     {
         "name": "bam-to-bigwig-star",
@@ -263,7 +339,11 @@
         ],
         "parents": ["5cdff4b0-9b37-4fb1-a93e-664742dbe505"],
         "analysis_step_types": ["file format conversion"],
-        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"]
+        "software_versions": ["834e3145-b752-4486-a613-c0c625262051"],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "name": "fastqc",
@@ -274,7 +354,11 @@
         "analysis_step_types": ["QA calculation"],
         "software_versions": [
             "225b2920-a594-11e4-bcd8-0800200c9a66"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "uuid": "78a19d0d-cfff-418a-9549-6aed3d492e6f",
@@ -290,7 +374,11 @@
         "analysis_step_types": ["QA calculation"],
         "software_versions": [
             "a87e214a-c07d-4df2-8a30-3eebd8b607ee"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     },
     {
         "uuid": "4c4042c6-27b0-42c5-b608-9061005e32ab",
@@ -321,7 +409,11 @@
             "cf999bd4-0a93-453d-9e0e-69d1cfe6292d",
             "d44db1ed-3af1-4e3b-ae7a-b0fb1085877f",
             "913f5f5c-7e58-4dd2-9f6d-8fca92d0e91c"
-        ]
+        ],
+        "version": {
+            "major": 1,
+            "minor": 0
+        }
     }
 
 ]
