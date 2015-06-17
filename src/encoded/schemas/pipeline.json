@@ -19,7 +19,7 @@
     ],
     "properties": {
         "schema_version": {
-            "default": "1"
+            "default": "2"
         },
         "name": {
             "title": "Name",
@@ -58,7 +58,7 @@
             "title": "Version",
             "description": "The version of a particular pipeline.",
             "comment": "Increments with each change to the series of analysis." ,
-            "type": "integer"
+            "type": "string"
         },
         "analysis_steps": {
             "title": "Analysis steps",
