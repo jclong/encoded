@@ -48,11 +48,14 @@
                      "peak calling",
                      "IDR",
                      "alignment",
+                     "replicate concordance",
                      "signal generation",
                      "quantification",
                      "transcript identification",
                      "transcriptome assembly",
-                     "variant annotation"
+                     "variant annotation",
+                     "read trimming",
+                     "interaction calling"
                  ]
              }
         },
@@ -103,6 +106,7 @@
                     "methylation state at CHG",
                     "methylation state at CHH",
                     "enrichment",
+                    "replication timing profile",
                     "hotspots",
                     "long range chromatin interactions",
                     "peaks",
@@ -120,7 +124,10 @@
                     "blacklisted regions",
                     "predicted transcription start sites",
                     "optimal idr thresholded peaks",
-                    "conserved idr thresholded peaks"
+                    "conserved idr thresholded peaks",
+                    "signal p-value",
+                    "fold change over control",
+                    "replicated peaks"
                 ]
             }
         },
@@ -161,6 +168,7 @@
                     "methylation state at CHG",
                     "methylation state at CHH",
                     "enrichment",
+                    "replication timing profile",
                     "hotspots",
                     "long range chromatin interactions",
                     "peaks",
@@ -178,7 +186,10 @@
                     "blacklisted regions",
                     "predicted transcription start sites",
                     "optimal idr thresholded peaks",
-                    "conserved idr thresholded peaks"
+                    "conserved idr thresholded peaks",
+                    "signal p-value",
+                    "fold change over control",
+                    "replicated peaks"
                 ]
             }
         },
